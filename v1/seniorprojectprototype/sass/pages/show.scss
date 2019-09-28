@@ -1,0 +1,14 @@
+.section-display {
+    background-image: linear-gradient( to right, rgba($color-primary-light, 0.80), rgba($color-primary-dark, 0.80)), url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png");
+    /*background-image: url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png");*/
+    height: 95vh;
+    background-size: cover;
+    background-position: top;
+    background-blend-mode: screen;
+
+    &__text {
+        margin-left: 3rem;
+        font-size: 4rem;
+        color: white;
+    }
+}

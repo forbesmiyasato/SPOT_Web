@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "base.css",
+	"sources": [
+		"base.scss",
+		"../abstracts/variables.scss"
+	],
+	"mappings": "AAEA,AAAA,CAAC,CACD,AAAC,CAAA,AAAA,OAAO,CACR,AAAC,CAAA,AAAA,QAAQ,AAAC,CACN,MAAM,CAAE,CAAE,CACV,OAAO,CAAE,CAAE,CACX,UAAU,CAAE,OAAQ,CACvB,AAED,AAAA,IAAI,AAAC,CACD,SAAS,CAAE,KAAM,CACpB,AAED,AAAA,IAAI,AAAC,CACD,UAAU,CAAE,UAAW,CAC1B",
+	"names": []
+}
