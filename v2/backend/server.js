@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://forbes:Forbesforbes11@cluster0-lxt5l.mongodb.net/SPOT?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://miya5288:SeniorProject@cluster0-m9wbz.mongodb.net/SPOT?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useCreateIndex: true
 })
@@ -21,11 +21,12 @@ connection.once('open', () => {
 })
 
 //const IndexRoute = require('./routes/index')
-const LocationRoute = require('./routes/Location')
+const SnapShotRoute = require('./routes/SnapShot')
 const ParkingRoute = require('./routes/ParkingLot')
 //app.use(IndexRoute);
-app.use(LocationRoute);
+app.use(SnapShotRoute);
 app.use(ParkingRoute);
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

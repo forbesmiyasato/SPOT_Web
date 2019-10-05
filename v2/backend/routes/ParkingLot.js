@@ -1,43 +1,47 @@
 const router = require('express').Router();
-let Parkinglot = require('../Models/ParkingLot');
-let Location = require('../Models/Location');
+let ParkingLot = require('../Models/ParkingLot');
+let SnapShot = require('../Models/SnapShot');
 
-router.route('/Location/:id/').get((req, res) => {
-    Parkinglot.findById(req.params.id)
-        .then(parking => res.json(parking))
+//Get JSON data for all parking lots
+router.route('/ParkingLot/All').get((req, res) => {
+    ParkingLot.find()
+        .then(location => res.json(location))
         .catch(err => res.status(400).json('Error:' + err));
 });
 
-router.route('/Location/:id/Parking/add').post((req, res) => {
-    const Name = req.body.Name;
-    const Parkings = req.body.Parkings;
-    const Lat = req.body.Lat;
-    const Lng = req.body.Lng;
-    Location.findById(req.params.id, function (err, location) {
+//Get JSON data for one parkinglot
+router.route('/ParkingLot/:id').get((req, res) => {
+    ParkingLot.findById(req.params.id, function (err, ParkingLotFound) {
         if (err) {
-            console.log(err)
+            console.log(err);
         } else {
-            const newParkingLot = new Parkinglot({
-                Name,
-                Parkings,
-                Lat,
-                Lng
-            });
-
-            newParkingLot.save()
-                .then(() => res.json('Parking Added'))
-                .catch(err => res.status(400).json('Error: ' + err));
-
-            location.ParkingLots.push(newParkingLot);
-            location.save();
+            res.json(ParkingLotFound);
         }
     })
-});
 
-router.route('/:id').get((req, res) => {
-    Parkinglot.findById(req.params.id)
-        .then(location => res.json(location))
-        .catch(err => res.status(400).json('Error: ' + err));
 })
+
+//Add ParkingLot to databse
+router.route('/ParkingLot/add').post((req, res) => {
+    const Name = req.body.Name;
+    const Description = req.body.Description;
+    const Lng = req.body.Lng;
+    const Lat = req.body.Lat;
+    const TotalParkings = req.body.TotalParkings;
+    const Image = req.body.Image;
+
+    const NewParkingLot = new ParkingLot({
+        Name,
+        Description,
+        Lng,
+        Lat,
+        TotalParkings,
+        Image
+    });
+
+    NewParkingLot.save()
+        .then(() => res.json('Location Added'))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;

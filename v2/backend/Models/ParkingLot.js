@@ -4,11 +4,19 @@ const Schema = mongoose.Schema;
 const ParkinglotSchema = new Schema(
     {
         Name: String,
-        Parkings: Number,
         Lat: Number,
-        Lng: Number
-    },
-    { timestamps: true }
+        Lng: Number,
+        SnapShots: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "SnapShot"
+            }
+            , {timestamps: true}
+        ],
+        Description: String,
+        TotalParkings: Number,
+        Image: String
+    }
 );
 
 // export the new Schema so we could modify it using Node.js
