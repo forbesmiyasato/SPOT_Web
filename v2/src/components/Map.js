@@ -15,10 +15,11 @@ class Map extends Component {
     };
 
     componentDidMount() {
+        console.log(this.props.Destination.lat);
         const directionsService = new google.maps.DirectionsService();
 
         const origin = { lat: 40.756795, lng: -73.954298 };
-        const destination = { lat: 41.756795, lng: -78.954298 };
+        const destination = { lat: this.props.Destination.lat, lng: this.props.Destination.lng };
 
         directionsService.route(
             {

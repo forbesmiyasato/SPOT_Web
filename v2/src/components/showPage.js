@@ -1,15 +1,20 @@
 import React from 'react';
 import Popup from './popup';
+import { Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 class ShowPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            DestinationLat: null,
+            DestinationLng: null,
+            direction: false,
             showPopup: false, showList: [
-                { Name: "Health Profession Campus", OpenParking: 5, Distance: 10, Image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Building_2_at_Pacific_University_HPC_south_side_-_Hillsboro%2C_Oregon.JPG"},
-                { Name: "Cascade Hall", OpenParking: 8, Distance: 20, Image: "https://www.walshconstruction.com/wp-content/uploads/PacU-Cascade-JoshPartee-3861-ext-corner-1450x966.jpg"},
-                { Name: "Stoller Hall", OpenParking: 5, Distance: 10, Image: "https://www.pacificu.edu/sites/html/map/images/Stoller_Center.jpg"},
-                { Name: "Gilbert Hall", OpenParking: 5, Distance: 10, Image: "https://cdnassets.hw.net/6d/51/5348993a4205be33137df8970a6b/d7b0e137-1210-40fe-beb5-36e47db92c70.jpg"}
+                { Name: "Health Profession Campus", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Building_2_at_Pacific_University_HPC_south_side_-_Hillsboro%2C_Oregon.JPG" },
+                { Name: "Cascade Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 8, Distance: 20, Image: "https://www.walshconstruction.com/wp-content/uploads/PacU-Cascade-JoshPartee-3861-ext-corner-1450x966.jpg" },
+                { Name: "Stoller Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://www.pacificu.edu/sites/html/map/images/Stoller_Center.jpg" },
+                { Name: "Gilbert Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://cdnassets.hw.net/6d/51/5348993a4205be33137df8970a6b/d7b0e137-1210-40fe-beb5-36e47db92c70.jpg" }
             ]
         };
         this.togglePopup = this.togglePopup.bind(this);
@@ -21,8 +26,15 @@ class ShowPage extends React.Component {
         });
     }
 
+    handleClick(e, e2) {
+        this.setState({
+            direction: !this.state.direction,
+            DestinationLat: e,
+            DestinationLng: e2
+        });
+    }
+
     render() {
-        console.log(this.state.showList);
         return (
 
             <main>
@@ -63,7 +75,7 @@ class ShowPage extends React.Component {
                                                         <span class="prec 270" id="prec">20%</span>
                                                     </div>
                                                 </div>
-                                                <a href="/direction" class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></a>
+                                                <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></button>
                                                 <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
                                             </div>
                                         </div>
@@ -74,6 +86,21 @@ class ShowPage extends React.Component {
                         }
                     </div>
                 </section>
+                {this.state.direction ?
+                    //this.props.history.push({
+                    //    pathname: "/direction",
+                    //    state: {
+                    //        lat: this.state.DestinationLat
+                    //    }
+                    //})
+                    <Redirect to={{
+                        pathname: '/direction',
+                        state: { lat: this.state.DestinationLat, lng: this.state.DestinationLng }
+                    }}
+                    />
+                    : null
+                }
+
                 {this.state.showPopup ?
                     <Popup
                         text='Click "Close Button" to hide popup'
