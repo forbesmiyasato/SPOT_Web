@@ -112,7 +112,7 @@ body {
     font-size: 4rem;
     color: white; }
 
-.btn:link, .btn:visited {
+.btn, .btn:link, .btn:visited {
   text-transform: uppercase;
   text-decoration: none;
   padding: 1.5rem 4rem;
@@ -163,7 +163,7 @@ body {
   animation-fill-mode: backwards; }
 
 .btn__location {
-  position: absolute;
+  /*position: absolute;*/
   top: 10rem; }
 
 .btn__directions {
@@ -228,12 +228,13 @@ body {
     right: 2rem;
     width: 60%; }
   .card__heading-span {
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
     background-image: linear-gradient(to right bottom, rgba(157, 227, 200, 0.85), rgba(106, 176, 149, 0.85)); }
   .card__details {
-    padding: 3rem; }
+    padding: 3rem;
+    text-align: center; }
     .card__details ul {
       list-style: none;
       width: 80%;

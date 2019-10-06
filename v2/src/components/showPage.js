@@ -21,51 +21,6 @@ class ShowPage extends React.Component {
         });
     }
 
-    //createShowPage() {
-    //    for (let i = 0; i < 4; i++) {
-    //        this.state.showList.push(
-    //            <div class="row">
-    //                <div class="col-1-of-4">
-    //                    <div class="card" id="popup1">
-    //                        <div class="card__side card__side--front">
-    //                            <div class="card__picture card__picture--3">
-    //                                <img src="https://www.pacificu.edu/sites/html/map/images/Stoller_Center.jpg" />
-    //                            </div>
-    //                            <h4 class="card__heading">
-    //                                <span class="card__heading-span">Stoller Center</span>
-    //                            </h4>
-    //                            <div class="card__details">
-    //                                <div class="row">
-    //                                    <div class="col-1-of-2">
-    //                                        <h3>Parkings</h3>
-    //                                        <h3 class="card__details--parkings">1</h3>
-    //                                    </div>
-    //                                    <div class="col-1-of-2">
-    //                                        <h3>Distance</h3>
-    //                                        <h3 class="card__details--distance">5</h3>
-    //                                        <h4 class="utility-center">Miles</h4>
-    //                                    </div>
-    //                                </div>
-    //                            </div>
-    //                        </div>
-    //                        <div class="card__side card__side--back">
-    //                            <div class="card__cta">
-    //                                <div id="activeBorder" class="active-border">
-    //                                    <div id="circle" class="circle">
-    //                                        <span class="prec 270" id="prec">20%</span>
-    //                                    </div>
-    //                                </div>
-    //                                <a href="yahoo.com" class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></a>
-    //                                <button onClick={this.togglePopup} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
-    //                            </div>
-    //                        </div>
-    //                    </div>
-    //                </div>
-    //            </div>
-    //        )
-    //    }
-    //}
-
     render() {
         console.log(this.state.showList);
         return (
