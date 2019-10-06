@@ -63,7 +63,7 @@ class ShowPage extends React.Component {
                                                         <span class="prec 270" id="prec">20%</span>
                                                     </div>
                                                 </div>
-                                                <a href="yahoo.com" class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></a>
+                                                <a href="/direction" class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></a>
                                                 <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
                                             </div>
                                         </div>
