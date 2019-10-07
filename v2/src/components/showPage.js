@@ -109,17 +109,10 @@ class ShowPage extends React.Component {
                     </div>
                 </section>
                 {this.state.direction ?
-                    //this.props.history.push({
-                    //    pathname: "/direction",
-                    //    state: {
-                    //        lat: this.state.DestinationLat
-                    //    }
-                    //})
-                    <Redirect to={{
+                    this.props.history.push({
                         pathname: '/direction',
                         state: { lat: this.state.DestinationLat, lng: this.state.DestinationLng }
-                    }}
-                    />
+                    })
                     : null
                 }
 
