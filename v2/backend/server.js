@@ -23,10 +23,11 @@ connection.once('open', () => {
 //const IndexRoute = require('./routes/index')
 const SnapShotRoute = require('./routes/SnapShot')
 const ParkingRoute = require('./routes/ParkingLot')
+const UtilityRoute = require('./routes/utilities')
 //app.use(IndexRoute);
 app.use(SnapShotRoute);
 app.use(ParkingRoute);
-
+app.use(UtilityRoute);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

@@ -1,9 +1,10 @@
+
 import React from 'react';
 import Popup from './popup';
-import { Redirect } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
 import Axios from 'axios';
 import Spinner from './Spinner';
+import { getDistance } from 'geolib';
+import Distance from 'google-distance-matrix';
 
 class ShowPage extends React.Component {
     constructor(props) {
@@ -21,35 +22,56 @@ class ShowPage extends React.Component {
     }
 
     componentDidMount() {
+
         window.navigator.geolocation.getCurrentPosition(
             (position) => {
                 this.setState({ origin: position.coords })
+                const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+                    .then(response => {
+                        response.data.map((data) => {
+                            var distance;
+                            var duration;
+                            console.log(this.state.origin.longitude);
+                            var destinations = `${data.Lat}/${data.Lng}`;
+                            var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
+                            //console.log(process.env.REACT_APP_API);
+
+                            Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
+                                .then(response => {
+                                    console.log(response.data.duration);
+                                    distance = response.data.distance;
+                                    duration = response.data.duration;
+                                    Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+                                        .then(response => {
+                                            data["OpenParkings"] = (response.data);
+                                            data["Distance"] = distance;
+                                            data["Duration"] = duration;
+
+                                        }).then(() => {
+                                            this.setState({
+                                                showList: [data, ...this.state.showList]
+                                            })
+                                        })
+                                })
+
+                            //Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+                            //    .then(response => {
+                            //        data["OpenParkings"] = (response.data);
+                            //        data["Distance"] = distance;
+
+                            //    }).then(() => {
+                            //        this.setState({
+                            //            showList: [data, ...this.state.showList]
+                            //        })
+                            //    })
+
+                        })
+                    });
             },
             (err) => {
                 this.setState({ errorMessage: err.message })
             }
-        );
-
-
-        const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
-            .then(response => {
-                response.data.map((data) => {
-
-                    console.log(data._id);
-                    Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
-                        .then(response => {
-                            console.log(response);
-                            data["OpenParkings"] = (response.data);
-                            console.log(data);
-                        }).then(() => {
-                            this.setState({
-                                showList: [data, ...this.state.showList]
-                            })
-                        })
-
-                })
-            });
-        console.log(this.state.showList);
+        )
     }
 
     shouldComponenetUpdate() {
@@ -71,7 +93,7 @@ class ShowPage extends React.Component {
     }
 
     render() {
-        if (this.state.errorMessage && !this.state.latitude) {
+        if (this.state.errorMessage && !this.state.origin) {
             return <div> Error: {this.state.errorMessage} </div>
         }
         if (!this.state.errorMessage && this.state.origin) {
@@ -103,6 +125,9 @@ class ShowPage extends React.Component {
                                                             <h3>Distance</h3>
                                                             <h3 class="card__details--distance">{data.Distance}</h3>
                                                             <h4 class="utility-center">Miles</h4>
+                                                            <h3>Approximately</h3>
+                                                            <h3 class="card__details--distance">{data.Duration}</h3>
+                                                            <h4 class="utility-center">Minutes</h4>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,7 +170,7 @@ class ShowPage extends React.Component {
         }
         return <Spinner message="Please accept location request" />
     }
-    
+
 }
 
 export default ShowPage;
