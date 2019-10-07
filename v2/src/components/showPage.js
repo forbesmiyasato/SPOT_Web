@@ -2,6 +2,7 @@ import React from 'react';
 import Popup from './popup';
 import { Redirect } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
+import Axios from 'axios';
 
 class ShowPage extends React.Component {
     constructor(props) {
@@ -10,14 +11,35 @@ class ShowPage extends React.Component {
             DestinationLat: null,
             DestinationLng: null,
             direction: false,
-            showPopup: false, showList: [
-                { Name: "Health Profession Campus", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Building_2_at_Pacific_University_HPC_south_side_-_Hillsboro%2C_Oregon.JPG" },
-                { Name: "Cascade Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 8, Distance: 20, Image: "https://www.walshconstruction.com/wp-content/uploads/PacU-Cascade-JoshPartee-3861-ext-corner-1450x966.jpg" },
-                { Name: "Stoller Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://www.pacificu.edu/sites/html/map/images/Stoller_Center.jpg" },
-                { Name: "Gilbert Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://cdnassets.hw.net/6d/51/5348993a4205be33137df8970a6b/d7b0e137-1210-40fe-beb5-36e47db92c70.jpg" }
-            ]
+            showPopup: false, showList: []
         };
         this.togglePopup = this.togglePopup.bind(this);
+
+
+    }
+
+    componentDidMount() {
+        //const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+        //    .then(response => {
+        //        response.data.map((data) => {
+        //            this.state.showList.push(data);
+        //        })
+        //    });
+        //this.forceUpdate();
+        //console.log(this.state.showList);
+        const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+            .then(response => {
+                response.data.map((data) => {
+                    this.setState({
+                        showList: [data, ...this.state.showList]
+                    })
+                })
+            });
+        console.log(this.state.showList);
+    }
+
+    shouldComponenetUpdate() {
+
     }
 
     togglePopup() {
@@ -116,6 +138,11 @@ class ShowPage extends React.Component {
 
 export default ShowPage;
 
+
+//{ Name: "Health Profession Campus", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Building_2_at_Pacific_University_HPC_south_side_-_Hillsboro%2C_Oregon.JPG" },
+//{ Name: "Cascade Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 8, Distance: 20, Image: "https://www.walshconstruction.com/wp-content/uploads/PacU-Cascade-JoshPartee-3861-ext-corner-1450x966.jpg" },
+//{ Name: "Stoller Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://www.pacificu.edu/sites/html/map/images/Stoller_Center.jpg" },
+//{ Name: "Gilbert Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://cdnassets.hw.net/6d/51/5348993a4205be33137df8970a6b/d7b0e137-1210-40fe-beb5-36e47db92c70.jpg" }
             ////          <div class="col-1-of-4">
             ////            <div class="card">
             ////                <div class="card__side card__side--front">

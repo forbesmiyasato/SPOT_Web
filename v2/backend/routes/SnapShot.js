@@ -38,7 +38,7 @@ router.route('/ParkingLot/:id/SnapShots').get((req, res) => {
     })
 })
 
-//Get latest snapshot data from parkinglot
+//Get latest snapshot data(OpenParkings) from parkinglot
 router.route('/ParkingLot/:id/SnapShots/latest').get((req, res) => {
     ParkingLot.findById(req.params.id, function (err, ParkingLotFound) {
         if (err) {
@@ -48,7 +48,7 @@ router.route('/ParkingLot/:id/SnapShots/latest').get((req, res) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.json(SnapShotFound);
+                    res.json(SnapShotFound.OpenParkings);
                 };
             })
         };
