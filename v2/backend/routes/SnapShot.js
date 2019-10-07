@@ -44,11 +44,13 @@ router.route('/ParkingLot/:id/SnapShots/latest').get((req, res) => {
         if (err) {
             console.log(err);
         } else {
-            SnapShot.findById(ParkingLotFound.SnapShots[0], function (err, SnapShotFound) {
+            SnapShot.findById(ParkingLotFound.SnapShots[ParkingLotFound.SnapShots.length - 1], function (err, SnapShotFound) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.json(SnapShotFound.OpenParkings);
+                    if (SnapShotFound) {
+                        res.json(SnapShotFound.OpenParkings);
+                    }
                 };
             })
         };

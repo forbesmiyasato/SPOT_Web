@@ -19,20 +19,22 @@ class ShowPage extends React.Component {
     }
 
     componentDidMount() {
-        //const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
-        //    .then(response => {
-        //        response.data.map((data) => {
-        //            this.state.showList.push(data);
-        //        })
-        //    });
-        //this.forceUpdate();
-        //console.log(this.state.showList);
         const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
             .then(response => {
                 response.data.map((data) => {
-                    this.setState({
-                        showList: [data, ...this.state.showList]
-                    })
+
+                    console.log(data._id);
+                    Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+                        .then(response => {
+                            console.log(response);
+                            data["OpenParkings"] = (response.data);
+                            console.log(data);
+                        }).then(() => {
+                            this.setState({
+                                showList: [data, ...this.state.showList]
+                            })
+                        })
+
                 })
             });
         console.log(this.state.showList);
@@ -80,7 +82,7 @@ class ShowPage extends React.Component {
                                                 <div class="row">
                                                     <div class="col-1-of-2">
                                                         <h3>Parkings</h3>
-                                                        <h3 class="card__details--parkings">{data.OpenParking}</h3>
+                                                        <h3 class="card__details--parkings">{data.OpenParkings}</h3>
                                                     </div>
                                                     <div class="col-1-of-2">
                                                         <h3>Distance</h3>
