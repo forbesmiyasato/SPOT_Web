@@ -5,9 +5,9 @@ import Map from './Map';
 
 class DirectionPage extends React.Component {
 
-    //componentDidMount() {
-    //    console.log(this.props.location);
-    //};
+    componentDidMount() {
+        console.log(this.props.location);
+    };
     render() {
         const MapLoader = withScriptjs(Map);
         return (
@@ -15,7 +15,8 @@ class DirectionPage extends React.Component {
             <MapLoader
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API}`}
                 loadingElement={<div style={{ height: `100%`, position: `none` }} />}
-                Destination={this.props.location.state}
+                Destination={this.props.location.Destination}
+                Origin={this.props.location.Origin}
             />
         );
     }
