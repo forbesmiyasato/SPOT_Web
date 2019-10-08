@@ -24,6 +24,10 @@
   .row .col-2-of-3 {
     width: calc(((100% - 2 * 6rem) / 3) * 2 + 6rem); }
 
+.ui.grid.column {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem; }
+
 *,
 *::after,
 *::before {
