@@ -12,7 +12,9 @@ class LandingPage extends React.Component {
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
         this.state = ({
             next: false,
-            origin: null
+            currentLocation: false,
+            origin: null,
+            errorMessage: null
         })
     }
 
@@ -26,11 +28,33 @@ class LandingPage extends React.Component {
         //this.props.onPlaceLoaded(place);
     }
 
+    currentLocation() {
+        console.log("currentLocation");
+        window.navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log(position)
+                this.setState({
+                    origin: position.coords,
+                    currentLocation: true
+                })
+                console.log(this.state.origin)
+
+            },
+            (err) => {
+                this.setState({ errorMessage: err.message })
+            }
+        )
+        //this.setState({
+        //    currentLocation: true
+        //})
+
+    }
+
     submitLocation() {
         console.log("submit");
-        var lat = this.autocomplete.getPlace().geometry.location.lat();
-        var lng = this.autocomplete.getPlace().geometry.location.lng()
-        var Origin = { lat, lng };
+        var latitude = this.autocomplete.getPlace().geometry.location.lat();
+        var longitude = this.autocomplete.getPlace().geometry.location.lng()
+        var Origin = { latitude, longitude };
         this.setState({
             next: true,
             origin: Origin
@@ -47,14 +71,14 @@ class LandingPage extends React.Component {
                         <span className="heading-primary--sub">Single Parking Observation Tool</span>
                     </h1>
                     <form onSubmit={this.submitLocation.bind(this)}>
-                    <div className="search-box">
-                        <input ref={this.autoCompleteInput} className="search-txt" list="parkings" type="text" placeholder="Search Parking Lot" />
-                        <a className="search-btn" href="#">
-                            <i className="icon-basic-magnifier"></i>
-                        </a>
+                        <div className="search-box">
+                            <input ref={this.autoCompleteInput} className="search-txt" list="parkings" type="text" placeholder="Search Parking Lot" />
+                            <a className="search-btn" onClick={this.submitLocation.bind(this)} >
+                                <i className="icon-basic-magnifier"></i>
+                            </a>
                         </div>
                     </form>
-                    <a href="/showpage" className="btn btn--white btn--animated btn__location"> Current Location <i className="icon-basic-geolocalize-05"></i></a>
+                    <button onClick={this.currentLocation.bind(this)} className="btn btn--white btn--animated btn__location"> Current Location <i className="icon-basic-geolocalize-05"></i></button>
                 </div>
                 {this.state.next ?
                     this.props.history.push({
@@ -63,8 +87,15 @@ class LandingPage extends React.Component {
                     })
                     : null
                 }
+                {this.state.currentLocation ?
+                    this.props.history.push({
+                        pathname: '/ShowPage',
+                        Origin: this.state.origin
+                    })
+                    : null
+                }
             </header>
-            )
+        )
     }
 
 }

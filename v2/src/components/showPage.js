@@ -19,14 +19,14 @@ class ShowPage extends React.Component {
         this.togglePopup = this.togglePopup.bind(this);
         console.log(this.props.location.Origin);
         if (this.props.location.Origin) {
-            localStorage.setItem('OriginLat', this.props.location.Origin.lat);
-            localStorage.setItem('OriginLng', this.props.location.Origin.lng);
+            localStorage.setItem('OriginLat', this.props.location.Origin.latitude);
+            localStorage.setItem('OriginLng', this.props.location.Origin.longitude);
         }
 
     }
 
     componentDidMount() {
-        console.log(localStorage.getItem('OriginLat'))
+        //console.log(localStorage.getItem('OriginLat'))
         if (localStorage.getItem('OriginLat')) {
             var Origin = { latitude: JSON.parse(localStorage.getItem('OriginLat')), longitude: JSON.parse(localStorage.getItem('OriginLng')) };
             this.setState({ origin: Origin })
@@ -35,6 +35,7 @@ class ShowPage extends React.Component {
                     response.data.map((data) => {
                         var distance;
                         var duration;
+                        var unit;
                         console.log(this.state.origin);
                         //console.log(response);lo
                         var destinations = `${data.Lat}/${data.Lng}`;
@@ -45,11 +46,13 @@ class ShowPage extends React.Component {
                             .then(response => {
                                 distance = response.data.distance;
                                 duration = response.data.duration;
+                                unit = response.data.unit;
                                 Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
                                     .then(response => {
                                         data["OpenParkings"] = (response.data);
                                         data["Distance"] = distance;
                                         data["Duration"] = duration;
+                                        data["Unit"] = unit;
 
                                     }).then(() => {
                                         this.setState({
@@ -60,44 +63,44 @@ class ShowPage extends React.Component {
                     })
                 });
         }
-        else {
-            window.navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.setState({ origin: position.coords })
-                    const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
-                        .then(response => {
-                            response.data.map((data) => {
-                                var distance;
-                                var duration;
-                                //console.log(response);
-                                var destinations = `${data.Lat}/${data.Lng}`;
-                                var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
-                                //console.log(process.env.REACT_APP_API);
+        //else {
+        //    window.navigator.geolocation.getCurrentPosition(
+        //        (position) => {
+        //            this.setState({ origin: position.coords })
+        //            const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+        //                .then(response => {
+        //                    response.data.map((data) => {
+        //                        var distance;
+        //                        var duration;
+        //                        //console.log(response);
+        //                        var destinations = `${data.Lat}/${data.Lng}`;
+        //                        var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
+        //                        //console.log(process.env.REACT_APP_API);
 
-                                Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
-                                    .then(response => {
-                                        distance = response.data.distance;
-                                        duration = response.data.duration;
-                                        Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
-                                            .then(response => {
-                                                data["OpenParkings"] = (response.data);
-                                                data["Distance"] = distance;
-                                                data["Duration"] = duration;
+        //                        Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
+        //                            .then(response => {
+        //                                distance = response.data.distance;
+        //                                duration = response.data.duration;
+        //                                Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+        //                                    .then(response => {
+        //                                        data["OpenParkings"] = (response.data);
+        //                                        data["Distance"] = distance;
+        //                                        data["Duration"] = duration;
 
-                                            }).then(() => {
-                                                this.setState({
-                                                    showList: [data, ...this.state.showList]
-                                                })
-                                            })
-                                    })
-                            })
-                        });
-                },
-                (err) => {
-                    this.setState({ errorMessage: err.message })
-                }
-            )
-        }
+        //                                    }).then(() => {
+        //                                        this.setState({
+        //                                            showList: [data, ...this.state.showList]
+        //                                        })
+        //                                    })
+        //                            })
+        //                    })
+        //                });
+        //        },
+        //        (err) => {
+        //            this.setState({ errorMessage: err.message })
+        //        }
+        //    )
+        //}
     }
 
     shouldComponenetUpdate() {
@@ -153,7 +156,7 @@ class ShowPage extends React.Component {
                                                             <h4 class="utility-center">Miles</h4>
                                                             <h3>Approximately</h3>
                                                             <h3 class="card__details--distance">{data.Duration}</h3>
-                                                            <h4 class="utility-center">Minutes</h4>
+                                                            <h4 class="utility-center">{data.Unit}</h4>
                                                         </div>
                                                     </div>
                                                 </div>
