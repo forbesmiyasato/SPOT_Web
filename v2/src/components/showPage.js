@@ -141,8 +141,7 @@ class ShowPage extends React.Component {
                     {this.state.direction ?
                         this.props.history.push({
                             pathname: '/direction',
-                            Destination: { lat: this.state.DestinationLat, lng: this.state.DestinationLng },
-                            Origin: { lat: this.state.origin.latitude, lng: this.state.origin.longitude }
+                            state: { lat: this.state.DestinationLat, lng: this.state.DestinationLng }
                         })
                         : null
                     }
