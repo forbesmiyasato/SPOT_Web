@@ -10,16 +10,26 @@ import {
 
 
 class Map extends Component {
+
+    constructor(props) {
+        super(props);
+        if (this.props.Destination) {
+            localStorage.setItem('DestinationLat', this.props.Destination.lat);
+            localStorage.setItem('DestinationLng', this.props.Destination.lng);
+            localStorage.setItem('OriginLat', this.props.Origin.lat);
+            localStorage.setItem('OriginLng', this.props.Origin.lng);
+        }
+    }
     state = {
         directions: null
     };
 
     componentDidMount() {
         const directionsService = new google.maps.DirectionsService();
-
-        const origin = { lat: this.props.Origin.lat, lng: this.props.Origin.lng };
-        const destination = { lat: this.props.Destination.lat, lng: this.props.Destination.lng };
-
+        console.log(localStorage.getItem('OriginLat'))
+        const origin = { lat: JSON.parse(localStorage.getItem('OriginLat')), lng: JSON.parse(localStorage.getItem('OriginLng')) };
+        const destination = { lat: JSON.parse(localStorage.getItem('DestinationLat')), lng: JSON.parse(localStorage.getItem('DestinationLng')) };
+        console.log(origin);
         directionsService.route(
             {
                 origin: origin,
@@ -37,6 +47,13 @@ class Map extends Component {
             }
         );
     }
+
+    //componentWillUpdate(nextProps, nextState) {
+    //    localStorage.setItem('DestinationLat', this.props.Destination.lat);
+    //    localStorage.setItem('DesinationLng', this.props.Destination.lng);
+    //    localStorage.setItem('OriginLat', this.props.Origin.lat);
+    //    localStorage.setItem('OriginLng', this.props.Origin.lng);
+    //}
 
     render() {
         const GoogleMapExample = withGoogleMap(props => (
