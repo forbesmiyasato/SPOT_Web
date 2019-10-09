@@ -40,3 +40,8 @@
         width: calc(((100% - 2 * #{$gutter-horizontal}) / 3) * 2 + #{$gutter-horizontal})
     }
 }
+
+.ui.grid.column {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
