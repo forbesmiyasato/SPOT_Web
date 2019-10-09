@@ -35,7 +35,7 @@ class ShowPage extends React.Component {
                     response.data.map((data) => {
                         var distance;
                         var duration;
-                        var unit;
+                        var timeUnit;
                         console.log(this.state.origin);
                         //console.log(response);lo
                         var destinations = `${data.Lat}/${data.Lng}`;
@@ -46,13 +46,13 @@ class ShowPage extends React.Component {
                             .then(response => {
                                 distance = response.data.distance;
                                 duration = response.data.duration;
-                                unit = response.data.unit;
+                                timeUnit = response.data.unit;
                                 Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
                                     .then(response => {
                                         data["OpenParkings"] = (response.data);
                                         data["Distance"] = distance;
                                         data["Duration"] = duration;
-                                        data["Unit"] = unit;
+                                        data["TimeUnit"] = timeUnit;
 
                                     }).then(() => {
                                         this.setState({
@@ -156,7 +156,7 @@ class ShowPage extends React.Component {
                                                             <h4 class="utility-center">Miles</h4>
                                                             <h3>Approximately</h3>
                                                             <h3 class="card__details--distance">{data.Duration}</h3>
-                                                            <h4 class="utility-center">{data.Unit}</h4>
+                                                            <h4 class="utility-center">{data.TimeUnit}</h4>
                                                         </div>
                                                     </div>
                                                 </div>

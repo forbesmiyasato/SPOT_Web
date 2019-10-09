@@ -58,7 +58,7 @@ class Map extends Component {
     render() {
         const GoogleMapExample = withGoogleMap(props => (
             <GoogleMap
-                defaultCenter={{ lat: 40.756795, lng: -73.954298 }}
+                defaultCenter={{ lat: JSON.parse(localStorage.getItem('OriginLat')), lng: JSON.parse(localStorage.getItem('OriginLng')) }}
                 defaultZoom={13}
             >
                 <DirectionsRenderer
