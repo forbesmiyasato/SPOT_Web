@@ -17,49 +17,87 @@ class ShowPage extends React.Component {
             showPopup: false, showList: []
         };
         this.togglePopup = this.togglePopup.bind(this);
-
+        console.log(this.props.location.Origin);
+        if (this.props.location.Origin) {
+            localStorage.setItem('OriginLat', this.props.location.Origin.lat);
+            localStorage.setItem('OriginLng', this.props.location.Origin.lng);
+        }
 
     }
 
     componentDidMount() {
+        console.log(localStorage.getItem('OriginLat'))
+        if (localStorage.getItem('OriginLat')) {
+            var Origin = { latitude: JSON.parse(localStorage.getItem('OriginLat')), longitude: JSON.parse(localStorage.getItem('OriginLng')) };
+            this.setState({ origin: Origin })
+            const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+                .then(response => {
+                    response.data.map((data) => {
+                        var distance;
+                        var duration;
+                        console.log(this.state.origin);
+                        //console.log(response);lo
+                        var destinations = `${data.Lat}/${data.Lng}`;
+                        var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
+                        //console.log(process.env.REACT_APP_API);
 
-        window.navigator.geolocation.getCurrentPosition(
-            (position) => {
-                this.setState({ origin: position.coords })
-                const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
-                    .then(response => {
-                        response.data.map((data) => {
-                            var distance;
-                            var duration;
-                            console.log(response);
-                            var destinations = `${data.Lat}/${data.Lng}`;
-                            var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
-                            //console.log(process.env.REACT_APP_API);
+                        Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
+                            .then(response => {
+                                distance = response.data.distance;
+                                duration = response.data.duration;
+                                Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+                                    .then(response => {
+                                        data["OpenParkings"] = (response.data);
+                                        data["Distance"] = distance;
+                                        data["Duration"] = duration;
 
-                            Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
-                                .then(response => {
-                                    console.log(response.data.duration);
-                                    distance = response.data.distance;
-                                    duration = response.data.duration;
-                                    Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
-                                        .then(response => {
-                                            data["OpenParkings"] = (response.data);
-                                            data["Distance"] = distance;
-                                            data["Duration"] = duration;
-
-                                        }).then(() => {
-                                            this.setState({
-                                                showList: [data, ...this.state.showList]
-                                            })
+                                    }).then(() => {
+                                        this.setState({
+                                            showList: [data, ...this.state.showList]
                                         })
-                                })
-                        })
-                    });
-            },
-            (err) => {
-                this.setState({ errorMessage: err.message })
-            }
-        )
+                                    })
+                            })
+                    })
+                });
+        }
+        else {
+            window.navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    this.setState({ origin: position.coords })
+                    const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+                        .then(response => {
+                            response.data.map((data) => {
+                                var distance;
+                                var duration;
+                                //console.log(response);
+                                var destinations = `${data.Lat}/${data.Lng}`;
+                                var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
+                                //console.log(process.env.REACT_APP_API);
+
+                                Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
+                                    .then(response => {
+                                        distance = response.data.distance;
+                                        duration = response.data.duration;
+                                        Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+                                            .then(response => {
+                                                data["OpenParkings"] = (response.data);
+                                                data["Distance"] = distance;
+                                                data["Duration"] = duration;
+
+                                            }).then(() => {
+                                                this.setState({
+                                                    showList: [data, ...this.state.showList]
+                                                })
+                                            })
+                                    })
+                            })
+                        });
+                },
+                (err) => {
+                    this.setState({ errorMessage: err.message })
+                }
+            )
+        }
     }
 
     shouldComponenetUpdate() {

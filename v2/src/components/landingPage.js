@@ -10,6 +10,10 @@ class LandingPage extends React.Component {
         this.autoCompleteInput = React.createRef();
         this.autoComplete = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
+        this.state = ({
+            next: false,
+            origin: null
+        })
     }
 
     componentDidMount() {
@@ -24,8 +28,15 @@ class LandingPage extends React.Component {
 
     submitLocation() {
         console.log("submit");
-        console.log(this.autocomplete.getPlace().geometry.location.lat());
+        var lat = this.autocomplete.getPlace().geometry.location.lat();
+        var lng = this.autocomplete.getPlace().geometry.location.lng()
+        var Origin = { lat, lng };
+        this.setState({
+            next: true,
+            origin: Origin
+        })
     }
+
     render() {
         return (
             <header className="header">
@@ -45,7 +56,13 @@ class LandingPage extends React.Component {
                     </form>
                     <a href="/showpage" className="btn btn--white btn--animated btn__location"> Current Location <i className="icon-basic-geolocalize-05"></i></a>
                 </div>
-
+                {this.state.next ?
+                    this.props.history.push({
+                        pathname: '/ShowPage',
+                        Origin: this.state.origin
+                    })
+                    : null
+                }
             </header>
             )
     }
