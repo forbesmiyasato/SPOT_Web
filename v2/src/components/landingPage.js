@@ -14,7 +14,8 @@ class LandingPage extends React.Component {
             next: false,
             currentLocation: false,
             origin: null,
-            errorMessage: null
+            errorMessage: null,
+            wrongLocation: false
         })
     }
 
@@ -52,13 +53,20 @@ class LandingPage extends React.Component {
 
     submitLocation() {
         console.log("submit");
-        var latitude = this.autocomplete.getPlace().geometry.location.lat();
-        var longitude = this.autocomplete.getPlace().geometry.location.lng()
-        var Origin = { latitude, longitude };
-        this.setState({
-            next: true,
-            origin: Origin
-        })
+        if (this.autocomplete.getPlace()) {
+            var latitude = this.autocomplete.getPlace().geometry.location.lat();
+            var longitude = this.autocomplete.getPlace().geometry.location.lng()
+            var Origin = { latitude, longitude };
+            this.setState({
+                next: true,
+                origin: Origin
+            })
+        }
+        else {
+            this.setState({
+                wrongLocation: true
+            })
+        }
     }
 
     render() {
@@ -91,6 +99,12 @@ class LandingPage extends React.Component {
                     this.props.history.push({
                         pathname: '/ShowPage',
                         Origin: this.state.origin
+                    })
+                    : null
+                }
+                {this.state.wrongLocation ?
+                    this.props.history.push({
+                        pathname: '/LocationNotFound'
                     })
                     : null
                 }

@@ -3,8 +3,7 @@ import React from 'react';
 import Popup from './popup';
 import Axios from 'axios';
 import Spinner from './Spinner';
-import { getDistance } from 'geolib';
-import Distance from 'google-distance-matrix';
+import AvailabilityChart from './AvailabilityChart';
 
 class ShowPage extends React.Component {
     constructor(props) {
@@ -163,11 +162,7 @@ class ShowPage extends React.Component {
                                             </div>
                                             <div class="card__side card__side--back">
                                                 <div class="card__cta">
-                                                    <div id="activeBorder" class="active-border">
-                                                        <div id="circle" class="circle">
-                                                            <span class="prec 270" id="prec">20%</span>
-                                                        </div>
-                                                    </div>
+                                                    <AvailabilityChart UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
                                                     <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></button>
                                                     <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
                                                 </div>
@@ -205,6 +200,12 @@ class ShowPage extends React.Component {
 
 export default ShowPage;
 
+
+//<div id="activeBorder" class="active-border">
+//    <div id="circle" class="circle">
+//        <span class="prec 270" id="prec">20%</span>
+//    </div>
+//</div>
 
 //{ Name: "Health Profession Campus", Lat: 41.756795, Lng: -78.954298, OpenParking: 5, Distance: 10, Image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Building_2_at_Pacific_University_HPC_south_side_-_Hillsboro%2C_Oregon.JPG" },
 //{ Name: "Cascade Hall", Lat: 41.756795, Lng: -78.954298, OpenParking: 8, Distance: 20, Image: "https://www.walshconstruction.com/wp-content/uploads/PacU-Cascade-JoshPartee-3861-ext-corner-1450x966.jpg" },
