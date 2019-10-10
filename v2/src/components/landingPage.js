@@ -10,6 +10,7 @@ class LandingPage extends React.Component {
         this.autoCompleteInput = React.createRef();
         this.autoComplete = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
+        this.removeElementsByClass = this.removeElementsByClass(this);
         this.state = ({
             next: false,
             currentLocation: false,
@@ -19,14 +20,37 @@ class LandingPage extends React.Component {
         })
     }
 
+    removeElementsByClass(className) {
+        var elements = document.getElementsByClassName(className);
+        while (elements.length > 0) {
+            elements[0].parentNode.removeChild(elements[0]);
+        }
+    }
+
     componentDidMount() {
         this.autocomplete = new google.maps.places.Autocomplete(this.autoCompleteInput.current);
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
+
+        google.maps.event.addDomListener(document.getElementById('input'), 'keydown', function (e) {
+            if (e.keyCode === 13) {
+                const googleDOMNodes = document.getElementsByClassName('pac-container');
+                if (googleDOMNodes.length > 0) {
+                    e.preventDefault();
+                }
+                //this.removeElementsByClass('pac-container');
+                var elements = document.getElementsByClassName('pac-container');
+                while (elements.length > 0) {
+                    elements[0].parentNode.removeChild(elements[0]);
+                }
+            }
+        })
     }
+
+
 
     handlePlaceChanged() {
         const place = this.autocomplete.getPlace();
-        //this.props.onPlaceLoaded(place);
+        console.log("place changed")
     }
 
     currentLocation() {
@@ -81,7 +105,7 @@ class LandingPage extends React.Component {
                         <span className="heading-primary--main">Spot</span>
                         <span className="heading-primary--sub">Single Parking Observation Tool</span>
                     </h1>
-                    <form onSubmit={this.submitLocation.bind(this)} onChange={this.test.bind(this)}>
+                    <form id="input" onSubmit={this.submitLocation.bind(this)} onChange={this.test.bind(this)}>
                         <div className="search-box">
                             <input onSubmit={this.submitLocation.bind(this)} ref={this.autoCompleteInput} className="search-txt" list="parkings" type="text" placeholder="Search Parking Lot" />
                             <a className="search-btn" onClick={this.submitLocation.bind(this)} >
