@@ -51,6 +51,9 @@ class LandingPage extends React.Component {
 
     }
 
+    test(event) {
+        console.log(event.target.value);
+    }
     submitLocation() {
         console.log("submit");
         if (this.autocomplete.getPlace()) {
@@ -78,9 +81,9 @@ class LandingPage extends React.Component {
                         <span className="heading-primary--main">Spot</span>
                         <span className="heading-primary--sub">Single Parking Observation Tool</span>
                     </h1>
-                    <form onSubmit={this.submitLocation.bind(this)}>
+                    <form onSubmit={this.submitLocation.bind(this)} onChange={this.test.bind(this)}>
                         <div className="search-box">
-                            <input ref={this.autoCompleteInput} className="search-txt" list="parkings" type="text" placeholder="Search Parking Lot" />
+                            <input onSubmit={this.submitLocation.bind(this)} ref={this.autoCompleteInput} className="search-txt" list="parkings" type="text" placeholder="Search Parking Lot" />
                             <a className="search-btn" onClick={this.submitLocation.bind(this)} >
                                 <i className="icon-basic-magnifier"></i>
                             </a>
