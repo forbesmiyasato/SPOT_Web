@@ -10,7 +10,8 @@ router.route('/distancematrix/:originLat/:originLng/:DestLat/:DestLng').get((req
     Distance.matrix(origin, destination, function (err, result) {
         if (!err) {
             var distancematrix = {
-                distance: (parseFloat(result.rows[0].elements[0].distance.text) * 0.621371).toFixed(2),
+                //distance: (parseFloat(result.rows[0].elements[0].distance.text) * 0.621371).toFixed(2),
+                distance: (parseFloat(result.rows[0].elements[0].distance.value) * 0.621371 / 1000).toFixed(2),
                 duration: (result.rows[0].elements[0].duration.text).substr(0, (result.rows[0].elements[0].duration.text).indexOf(' ')),
                 unit: (result.rows[0].elements[0].duration.text).substr((result.rows[0].elements[0].duration.text).indexOf(' ') + 1)
             }
