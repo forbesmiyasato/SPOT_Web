@@ -16,14 +16,15 @@ class AvailabilityChart extends Component {
         var display = percent.toString() + "%";
 
         this.state = {
-            labels: ['Open Parking', 'UnavailableParkings'],
+            labels: ['Open', 'Occupied'],
             datasets: [{
                 data: [this.props.OpenParkings, this.props.UnavailableParkings],
-                backgroundColor: ['#85dcba', 'rgba(255, 0, 0, 1)'],
-
+                backgroundColor: ['#85dcba', 'rgba(255, 0, 0, 1)']
             }],
             text: display
         }
+        Chart.defaults.global.defaultFontColor = "#fff";
+        //Chart.defaults.global.defaultFontFamily = "Arial"
         var originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
         Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
             draw: function () {
@@ -34,8 +35,8 @@ class AvailabilityChart extends Component {
                     height = chart.chart.height,
                     ctx = chart.chart.ctx;
 
-                var fontSize = (height / 114).toFixed(2);
-                ctx.font = fontSize + "em sans-serif";
+                var fontSize = (height / 150).toFixed(2);
+                ctx.font = fontSize + "em Lato";
                 ctx.textBaseline = "middle";
           
                 var sum = 0;
