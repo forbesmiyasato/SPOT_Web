@@ -48,12 +48,23 @@ class LandingPage extends React.Component {
                 }
             }
         })
+        
     }
 
 
 
     handlePlaceChanged() {
         const place = this.autocomplete.getPlace();
+        console.log(place);
+        console.log(place.geometry);
+        if (!place.geometry) {
+            console.log("invalid location");
+            window.alert("Please selected address suggested in dropdown")
+        }
+        else {
+            this.submitLocation();
+            console.log("submit");
+        }
         console.log("place changed")
     }
 
@@ -93,7 +104,7 @@ class LandingPage extends React.Component {
 
         console.log("submit");
         console.log(this.autocomplete.getPlace());
-        if (this.autocomplete.getPlace()) {
+        if (this.autocomplete.getPlace().geometry) {
             var latitude = this.autocomplete.getPlace().geometry.location.lat();
             var longitude = this.autocomplete.getPlace().geometry.location.lng()
             var Origin = { latitude, longitude };
@@ -103,9 +114,10 @@ class LandingPage extends React.Component {
             })
         }
         else {
-            this.setState({
-                wrongLocation: true
-            })
+            //this.setState({
+            //    wrongLocation: true
+            //})
+            window.alert("Please selected address suggested in dropdown")
         }
     }
 
