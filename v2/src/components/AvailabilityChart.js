@@ -12,8 +12,8 @@ class AvailabilityChart extends Component {
         var openParkings = parseInt(this.props.OpenParkings);
         var unavailableParkings = parseInt(this.props.UnavailableParkings);
         var totalParkings = openParkings + unavailableParkings;
-        var percent = openParkings / totalParkings;
-        var display = percent.toFixed(2).toString() + "%";
+        var percent = openParkings / totalParkings * 100;
+        var display = percent.toString() + "%";
 
         this.state = {
             labels: ['Open Parking', 'UnavailableParkings'],
