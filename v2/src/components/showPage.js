@@ -31,11 +31,13 @@ class ShowPage extends React.Component {
             this.setState({ origin: Origin })
             const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
                 .then(response => {
+                    //console.log(response);
                     response.data.map((data) => {
                         var distance;
                         var duration;
                         var timeUnit;
-                        console.log(this.state.origin);
+                        //console.log(this.state.origin);
+                        console.log((data.Name));
                         //console.log(response);lo
                         var destinations = `${data.Lat}/${data.Lng}`;
                         var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
@@ -162,7 +164,7 @@ class ShowPage extends React.Component {
                                             </div>
                                             <div class="card__side card__side--back">
                                                 <div class="card__cta">
-                                                    <AvailabilityChart UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
+                                                    <AvailabilityChart key={data._id} UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
                                                     <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></button>
                                                     <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
                                                 </div>
