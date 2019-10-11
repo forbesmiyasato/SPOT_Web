@@ -48,18 +48,28 @@ class LandingPage extends React.Component {
                 }
             }
         })
-        
+
     }
 
 
 
     handlePlaceChanged() {
         const place = this.autocomplete.getPlace();
-        console.log(place);
-        console.log(place.geometry);
+        //console.log(place);
+        //console.log(place.geometry);
+        //google.maps.event.addDomListener(document.getElementById('input'), 'keydown', function (e) {
+        //    if (e.keyCode === 13) {
+        //        var firstValue = document.getElementsByClassName(".pac-container .pac-item:first") 
+        //        console.log(firstValue);
+        //    }
+        //  /*  document.getElementById('input').val(firstValue);*/ // add this string to input
+        //    console.log(firstValue); // display the string on your browser console to check what it is
+        //    //(...) add the rest of your code here
+
+        //})
         if (!place.geometry) {
             console.log("invalid location");
-            window.alert("Please selected address suggested in dropdown")
+            this.submitLocation();
         }
         else {
             this.submitLocation();
@@ -100,6 +110,7 @@ class LandingPage extends React.Component {
     test(event) {
         console.log(event.target.value);
     }
+
     submitLocation() {
 
         console.log("submit");
@@ -118,6 +129,7 @@ class LandingPage extends React.Component {
             //    wrongLocation: true
             //})
             window.alert("Please selected address suggested in dropdown")
+            window.location.reload();
         }
     }
 
