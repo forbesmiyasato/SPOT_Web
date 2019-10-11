@@ -34,7 +34,7 @@ class LandingPage extends React.Component {
         }
         this.autocomplete = new google.maps.places.Autocomplete(this.autoCompleteInput.current, options);
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-        
+
         google.maps.event.addDomListener(document.getElementById('input'), 'keydown', function (e) {
             if (e.keyCode === 13) {
                 const googleDOMNodes = document.getElementsByClassName('pac-container');
@@ -75,7 +75,7 @@ class LandingPage extends React.Component {
             },
             (err) => {
                 this.setState({
-                    errorMessage: err.message,
+                    errorMessage: "Error: " + err.message + "! Please allow access to your location!",
                     wait: false
                 })
             }
@@ -109,18 +109,24 @@ class LandingPage extends React.Component {
         }
     }
 
+    //shouldComponentUpdate() {
+    //    if (this.state.errorMessage && !this.state.origin) {
+
+    //    }
+    //}
     render() {
 
-        if (this.state.errorMessage && !this.state.origin) {
-            return <div> Error: {this.state.errorMessage} </div>
-        }
+
 
         if (this.state.wait) {
             return <Spinner />
         }
         return (
             <header className="header">
-                {}
+                {this.state.errorMessage && !this.state.origin ?
+                    <h1 class="error"> {this.state.errorMessage} </h1>
+                    : null
+                }
                 <div className="header__logo-box">S<i className="fas fa-parking"></i>OT</div>
                 <div className="header__text-box">
                     <h1 className="heading-primary">
@@ -156,7 +162,7 @@ class LandingPage extends React.Component {
                         pathname: '/LocationNotFound'
                     })
                     : null
-                } 
+                }
             </header>
         )
     }
