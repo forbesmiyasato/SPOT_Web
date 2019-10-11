@@ -13,13 +13,13 @@ class AvailabilityChart extends Component {
         var unavailableParkings = parseInt(this.props.UnavailableParkings);
         var totalParkings = openParkings + unavailableParkings;
         var percent = openParkings / totalParkings;
-        var display = percent.toString() + "%";
+        var display = percent.toFixed(2).toString() + "%";
 
         this.state = {
             labels: ['Open Parking', 'UnavailableParkings'],
             datasets: [{
                 data: [this.props.OpenParkings, this.props.UnavailableParkings],
-                backgroundColor: ['green', 'red'],
+                backgroundColor: ['#85dcba', 'rgba(255, 0, 0, 1)'],
 
             }],
             text: display
@@ -37,7 +37,7 @@ class AvailabilityChart extends Component {
                 var fontSize = (height / 114).toFixed(2);
                 ctx.font = fontSize + "em sans-serif";
                 ctx.textBaseline = "middle";
-
+          
                 var sum = 0;
                 for (var i = 0; i < chart.config.data.datasets[0].data.length; i++) {
                     sum += chart.config.data.datasets[0].data[i];
@@ -45,8 +45,8 @@ class AvailabilityChart extends Component {
 
                 var text = chart.config.data.text,
                     textX = Math.round((width - ctx.measureText(text).width) / 2),
-                    textY = height / 2;
-
+                    textY = height / 1.75;
+                //ctx.fillStyle('#000000');
                 ctx.fillText(text, textX, textY);
                 ctx.save();
             }

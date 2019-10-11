@@ -123,79 +123,73 @@ class ShowPage extends React.Component {
     }
 
     render() {
-        if (this.state.errorMessage && !this.state.origin) {
-            return <div> Error: {this.state.errorMessage} </div>
-        }
-        if (!this.state.errorMessage && this.state.origin) {
-            return (
-                <main>
-                    <section class="section-display">
-                        <h2 class="section-display__text">
-                            Parking lots found
+        return (
+            <main>
+                <section class="section-display">
+                    <h2 class="section-display__text">
+                        Parking lots found
             </h2>
-                        <div class="ui stackable four column grid">
-                            {this.state.showList.map((data) => {
-                                return (
-                                    <div class="column">
-                                        <div class="card" id="popup1">
-                                            <div class="card__side card__side--front">
-                                                <div class="card__picture card__picture--3">
-                                                    <img src={data.Image} />
-                                                </div>
-                                                <h4 class="card__heading">
-                                                    <span class="card__heading-span">{data.Name}</span>
-                                                </h4>
-                                                <div class="card__details">
-                                                    <div class="row">
-                                                        <div class="col-1-of-2">
-                                                            <h3>Parkings</h3>
-                                                            <h3 class="card__details--parkings">{data.OpenParkings}</h3>
-                                                        </div>
-                                                        <div class="col-1-of-2">
-                                                            <h3>Distance</h3>
-                                                            <h3 class="card__details--distance">{data.Distance}</h3>
-                                                            <h4 class="utility-center">Miles</h4>
-                                                            <h3>Approximately</h3>
-                                                            <h3 class="card__details--distance">{data.Duration}</h3>
-                                                            <h4 class="utility-center">{data.TimeUnit}</h4>
-                                                        </div>
+                    <div class="ui stackable four column grid">
+                        {this.state.showList.map((data) => {
+                            return (
+                                <div class="column">
+                                    <div class="card" id="popup1">
+                                        <div class="card__side card__side--front">
+                                            <div class="card__picture card__picture--3">
+                                                <img src={data.Image} />
+                                            </div>
+                                            <h4 class="card__heading">
+                                                <span class="card__heading-span">{data.Name}</span>
+                                            </h4>
+                                            <div class="card__details">
+                                                <div class="row">
+                                                    <div class="col-1-of-2">
+                                                        <h3>Parkings</h3>
+                                                        <h3 class="card__details--parkings">{data.OpenParkings}</h3>
+                                                    </div>
+                                                    <div class="col-1-of-2">
+                                                        <h3>Distance</h3>
+                                                        <h3 class="card__details--distance">{data.Distance}</h3>
+                                                        <h4 class="utility-center">Miles</h4>
+                                                        <h3>Approximately</h3>
+                                                        <h3 class="card__details--distance">{data.Duration}</h3>
+                                                        <h4 class="utility-center">{data.TimeUnit}</h4>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card__side card__side--back">
-                                                <div class="card__cta">
-                                                    <AvailabilityChart key={data._id} UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
-                                                    <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></button>
-                                                    <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
-                                                </div>
+                                        </div>
+                                        <div class="card__side card__side--back">
+                                            <div class="card__cta">
+                                                <AvailabilityChart key={data._id} UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
+                                                <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></button>
+                                                <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
                                             </div>
                                         </div>
                                     </div>
-                                )
-                            })
-                            }
-                        </div>
-                    </section>
-                    {this.state.direction ?
-                        this.props.history.push({
-                            pathname: '/direction',
-                            Destination: { lat: this.state.DestinationLat, lng: this.state.DestinationLng },
-                            Origin: { lat: this.state.origin.latitude, lng: this.state.origin.longitude }
+                                </div>
+                            )
                         })
-                        : null
-                    }
+                        }
+                    </div>
+                </section>
+                {this.state.direction ?
+                    this.props.history.push({
+                        pathname: '/direction',
+                        Destination: { lat: this.state.DestinationLat, lng: this.state.DestinationLng },
+                        Origin: { lat: this.state.origin.latitude, lng: this.state.origin.longitude }
+                    })
+                    : null
+                }
 
-                    {this.state.showPopup ?
-                        <Popup
-                            text='Click "Close Button" to hide popup'
-                            closePopup={this.togglePopup.bind(this)}
-                        />
-                        : null
-                    }
-                </main>
-            )
-        }
-        return <Spinner message="Please accept location request" />
+                {this.state.showPopup ?
+                    <Popup
+                        text='Click "Close Button" to hide popup'
+                        closePopup={this.togglePopup.bind(this)}
+                    />
+                    : null
+                }
+            </main>
+        )
     }
 
 }

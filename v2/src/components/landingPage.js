@@ -1,7 +1,7 @@
 /*global google*/
 
 import React from 'react';
-
+import Spinner from './Spinner';
 
 class LandingPage extends React.Component {
 
@@ -16,7 +16,8 @@ class LandingPage extends React.Component {
             currentLocation: false,
             origin: null,
             errorMessage: null,
-            wrongLocation: false
+            wrongLocation: false,
+            wait: false
         })
     }
 
@@ -28,9 +29,12 @@ class LandingPage extends React.Component {
     }
 
     componentDidMount() {
-        this.autocomplete = new google.maps.places.Autocomplete(this.autoCompleteInput.current);
+        var options = {
+            componentRestrictions: { country: "us" }
+        }
+        this.autocomplete = new google.maps.places.Autocomplete(this.autoCompleteInput.current, options);
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-
+        
         google.maps.event.addDomListener(document.getElementById('input'), 'keydown', function (e) {
             if (e.keyCode === 13) {
                 const googleDOMNodes = document.getElementsByClassName('pac-container');
@@ -55,18 +59,25 @@ class LandingPage extends React.Component {
 
     currentLocation() {
         console.log("currentLocation");
+        this.setState({
+            wait: true
+        })
         window.navigator.geolocation.getCurrentPosition(
             (position) => {
                 console.log(position)
                 this.setState({
                     origin: position.coords,
-                    currentLocation: true
+                    currentLocation: true,
+                    wait: false
                 })
                 console.log(this.state.origin)
 
             },
             (err) => {
-                this.setState({ errorMessage: err.message })
+                this.setState({
+                    errorMessage: err.message,
+                    wait: false
+                })
             }
         )
         //this.setState({
@@ -79,7 +90,9 @@ class LandingPage extends React.Component {
         console.log(event.target.value);
     }
     submitLocation() {
+
         console.log("submit");
+        console.log(this.autocomplete.getPlace());
         if (this.autocomplete.getPlace()) {
             var latitude = this.autocomplete.getPlace().geometry.location.lat();
             var longitude = this.autocomplete.getPlace().geometry.location.lng()
@@ -97,8 +110,17 @@ class LandingPage extends React.Component {
     }
 
     render() {
+
+        if (this.state.errorMessage && !this.state.origin) {
+            return <div> Error: {this.state.errorMessage} </div>
+        }
+
+        if (this.state.wait) {
+            return <Spinner />
+        }
         return (
             <header className="header">
+                {}
                 <div className="header__logo-box">S<i className="fas fa-parking"></i>OT</div>
                 <div className="header__text-box">
                     <h1 className="heading-primary">
@@ -134,7 +156,7 @@ class LandingPage extends React.Component {
                         pathname: '/LocationNotFound'
                     })
                     : null
-                }
+                } 
             </header>
         )
     }
