@@ -506,7 +506,8 @@ body {
     bottom: 25%;
     margin: auto;
     border-radius: 20px;
-    background: white; }
+    background: white;
+    height: 40rem; }
 
 .header {
   height: 95vh;
