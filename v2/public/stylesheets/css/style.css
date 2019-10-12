@@ -346,7 +346,8 @@ body {
   transition: 0.4s;
   color: #85dcba;
   cursor: pointer;
-  text-decoration: none; }
+  text-decoration: none;
+  border: none; }
 
 .search-btn > i {
   font-size: 3rem; }

@@ -160,9 +160,9 @@ class LandingPage extends React.Component {
                     <form id="input" onSubmit={this.submitLocation.bind(this)} onChange={this.test.bind(this)}>
                         <div className="search-box">
                             <input onSubmit={this.submitLocation.bind(this)} ref={this.autoCompleteInput} className="search-txt" list="parkings" type="text" placeholder="Search Parking Lot" />
-                            <a className="search-btn" onClick={this.submitLocation.bind(this)} >
+                            <button className="search-btn" onClick={this.submitLocation.bind(this)} >
                                 <i className="icon-basic-magnifier"></i>
-                            </a>
+                            </button>
                         </div>
                     </form>
                     <button onClick={this.currentLocation.bind(this)} className="btn btn--white btn--animated btn__location"> Current Location <i className="icon-basic-geolocalize-05"></i></button>

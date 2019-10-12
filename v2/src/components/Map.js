@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import {
     withGoogleMap,
-    withScriptjs,
     GoogleMap,
     DirectionsRenderer
 } from "react-google-maps";

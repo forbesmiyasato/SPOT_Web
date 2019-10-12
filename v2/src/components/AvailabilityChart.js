@@ -39,10 +39,10 @@ class AvailabilityChart extends Component {
                 ctx.font = fontSize + "em Lato";
                 ctx.textBaseline = "middle";
           
-                var sum = 0;
-                for (var i = 0; i < chart.config.data.datasets[0].data.length; i++) {
-                    sum += chart.config.data.datasets[0].data[i];
-                }
+                //var sum = 0;
+                //for (var i = 0; i < chart.config.data.datasets[0].data.length; i++) {
+                //    sum += chart.config.data.datasets[0].data[i];
+                //}
 
                 var text = chart.config.data.text,
                     textX = Math.round((width - ctx.measureText(text).width) / 2),

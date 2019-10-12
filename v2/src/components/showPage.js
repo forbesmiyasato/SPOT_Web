@@ -2,7 +2,6 @@
 import React from 'react';
 import Popup from './popup';
 import Axios from 'axios';
-import Spinner from './Spinner';
 import AvailabilityChart from './AvailabilityChart';
 
 class ShowPage extends React.Component {
@@ -13,7 +12,9 @@ class ShowPage extends React.Component {
             DestinationLat: null,
             DestinationLng: null,
             direction: false,
-            showPopup: false, showList: []
+            showPopup: false,
+            showList: [],
+            parkingLotID: null
         };
         this.togglePopup = this.togglePopup.bind(this);
         console.log(this.props.location.Origin);
@@ -29,19 +30,14 @@ class ShowPage extends React.Component {
         if (localStorage.getItem('OriginLat')) {
             var Origin = { latitude: JSON.parse(localStorage.getItem('OriginLat')), longitude: JSON.parse(localStorage.getItem('OriginLng')) };
             this.setState({ origin: Origin })
-            const ParkingLots = Axios.get('http://localhost:5000/ParkingLot/All')
+            Axios.get('http://localhost:5000/ParkingLot/All')
                 .then(response => {
-                    //console.log(response);
                     response.data.map((data) => {
                         var distance;
                         var duration;
                         var timeUnit;
-                        //console.log(this.state.origin);
-                        console.log((data.Name));
-                        //console.log(response);lo
                         var destinations = `${data.Lat}/${data.Lng}`;
                         var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
-                        //console.log(process.env.REACT_APP_API);
 
                         Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
                             .then(response => {
@@ -61,6 +57,7 @@ class ShowPage extends React.Component {
                                         })
                                     })
                             })
+                        return data;
                     })
                 });
         }
@@ -108,9 +105,11 @@ class ShowPage extends React.Component {
 
     }
 
-    togglePopup() {
+    togglePopup(id) {
+        console.log(id);
         this.setState({
-            showPopup: !this.state.showPopup
+            showPopup: !this.state.showPopup,
+            parkingLotID: id
         });
     }
 
@@ -125,44 +124,44 @@ class ShowPage extends React.Component {
     render() {
         return (
             <main>
-                <section class="section-display">
-                    <h2 class="section-display__text">
+                <section className="section-display">
+                    <h2 className="section-display__text">
                         Parking lots found
             </h2>
-                    <div class="ui stackable four column grid">
+                    <div className="ui stackable four column grid">
                         {this.state.showList.map((data) => {
                             return (
-                                <div class="column">
-                                    <div class="card" id="popup1">
-                                        <div class="card__side card__side--front">
-                                            <div class="card__picture card__picture--3">
-                                                <img src={data.Image} />
+                                <div className="column">
+                                    <div className="card" id="popup1">
+                                        <div className="card__side card__side--front">
+                                            <div className="card__picture card__picture--3">
+                                                <img alt="Parking lot" src={data.Image} />
                                             </div>
-                                            <h4 class="card__heading">
-                                                <span class="card__heading-span">{data.Name}</span>
+                                            <h4 className="card__heading">
+                                                <span className="card__heading-span">{data.Name}</span>
                                             </h4>
-                                            <div class="card__details">
-                                                <div class="row">
-                                                    <div class="col-1-of-2">
+                                            <div className="card__details">
+                                                <div className="row">
+                                                    <div className="col-1-of-2">
                                                         <h3>Parkings</h3>
-                                                        <h3 class="card__details--parkings">{data.OpenParkings}</h3>
+                                                        <h3 className="card__details--parkings">{data.OpenParkings}</h3>
                                                     </div>
-                                                    <div class="col-1-of-2">
+                                                    <div className="col-1-of-2">
                                                         <h3>Distance</h3>
-                                                        <h3 class="card__details--distance">{data.Distance}</h3>
-                                                        <h4 class="utility-center">Miles</h4>
+                                                        <h3 className="card__details--distance">{data.Distance}</h3>
+                                                        <h4 className="utility-center">Miles</h4>
                                                         <h3>Approximately</h3>
-                                                        <h3 class="card__details--distance">{data.Duration}</h3>
-                                                        <h4 class="utility-center">{data.TimeUnit}</h4>
+                                                        <h3 className="card__details--distance">{data.Duration}</h3>
+                                                        <h4 className="utility-center">{data.TimeUnit}</h4>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card__side card__side--back">
-                                            <div class="card__cta">
+                                        <div className="card__side card__side--back">
+                                            <div className="card__cta">
                                                 <AvailabilityChart key={data._id} UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
-                                                <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} class="btn btn--white btn--animated btn__directions"> Get Directions <i class="icon-basic-geolocalize-01"></i></button>
-                                                <button onClick={this.togglePopup.bind(this)} class="btn btn--white btn--animated btn__statistics"> See Statistics <i class="icon-ecommerce-graph2"></i></button>
+                                                <button onClick={this.handleClick.bind(this, data.Lat, data.Lng)} className="btn btn--white btn--animated btn__directions"> Get Directions <i className="icon-basic-geolocalize-01"></i></button>
+                                                <button onClick={this.togglePopup.bind(this, data._id)} className="btn btn--white btn--animated btn__statistics"> See Statistics <i className="icon-ecommerce-graph2"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -183,8 +182,9 @@ class ShowPage extends React.Component {
 
                 {this.state.showPopup ?
                     <Popup
-                        text='Click "Close Button" to hide popup'
+                        key={this.state.parkingLotID}
                         closePopup={this.togglePopup.bind(this)}
+                        ID={this.state.parkingLotID}
                     />
                     : null
                 }
@@ -197,9 +197,9 @@ class ShowPage extends React.Component {
 export default ShowPage;
 
 
-//<div id="activeBorder" class="active-border">
-//    <div id="circle" class="circle">
-//        <span class="prec 270" id="prec">20%</span>
+//<div id="activeBorder" className="active-border">
+//    <div id="circle" className="circle">
+//        <span className="prec 270" id="prec">20%</span>
 //    </div>
 //</div>
 
