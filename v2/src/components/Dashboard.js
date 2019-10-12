@@ -3,6 +3,8 @@ import Chart from 'chart.js';
 import axios from 'axios';
 import { HorizontalBar, Bar } from 'react-chartjs-2';
 
+Chart.defaults.global.defaultFontColor = 'black';
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -95,7 +97,10 @@ class Dashboard extends React.Component {
                     var utcTime = data.timestamp;
                     hour = parseInt(utcTime.substring(11, 13)) - 7 < 0 ? parseInt(utcTime.substring(11, 13)) - 7 + 24 : parseInt(utcTime.substring(11, 13)) - 7;
                     console.log(hour);
-
+                    console.log(data.timestamp);
+                    console.log(count10);
+                    console.log(total10);
+                    console.log(this.state.ten);
                     if (hour === 1) {
                         total1 += data.OpenParkings;
                         count1++;
@@ -165,6 +170,7 @@ class Dashboard extends React.Component {
                         this.setState({
                             ten: total10 / count10
                         })
+                        console.log(total10);
                     }
                     if (hour === 11) {
                         total11 += data.OpenParkings;
@@ -283,6 +289,29 @@ class Dashboard extends React.Component {
                                     this.state.fifteen, this.state.sixteen, this.state.seventeen, this.state.eighteen, this.state.nineteen, this.state.twenty, this.state.twentyone,
                                     this.state.twentytwo, this.state.twentythree, this.state.twentyfour]
                             }]
+                    }}
+                    options={{
+                        legend: {
+                            labels: {
+                                fontColor: "black"
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    fontColor: "black",
+                                    fontSize: 18,
+                                    beginAtZero: true
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    fontColor: "black",
+                                    fontSize: 14,
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }}
                 />
             </div>
