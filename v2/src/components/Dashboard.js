@@ -33,8 +33,8 @@ class Dashboard extends React.Component {
             twenty: null,
             twentyone: null,
             twentytwo: null,
-            twentyfour: null,
             twentythree: null,
+            twentyfour: null,
             hours: []
         }
     }
@@ -97,75 +97,72 @@ class Dashboard extends React.Component {
                     var utcTime = data.timestamp;
                     hour = parseInt(utcTime.substring(11, 13)) - 7 < 0 ? parseInt(utcTime.substring(11, 13)) - 7 + 24 : parseInt(utcTime.substring(11, 13)) - 7;
                     console.log(hour);
-                    console.log(data.timestamp);
-                    console.log(count10);
-                    console.log(total10);
-                    console.log(this.state.ten);
+                    var openParkings = parseInt(data.OpenParkings);
                     if (hour === 1) {
-                        total1 += data.OpenParkings;
+                        total1 += openParkings;
                         count1++;
                         this.setState({
                             one: total1 / count1
                         })
                     }
                     if (hour === 2) {
-                        total2 += data.OpenParkings;
+                        total2 += openParkings;
                         count2++;
                         this.setState({
                             two: total2 / count2
                         })
                     }
                     if (hour === 3) {
-                        total3 += data.OpenParkings;
+                        total3 += openParkings;
                         count3++;
                         this.setState({
                             three: total3 / count3
                         })
                     }
                     if (hour === 4) {
-                        total4 += data.OpenParkings;
+                        total4 += openParkings;
                         count4++;
                         this.setState({
                             four: total4 / count4
                         })
                     }
                     if (hour === 5) {
-                        total5 += data.OpenParkings;
+                        total5 += openParkings;
                         count5++;
                         this.setState({
                             five: total5 / count5
                         })
                     }
                     if (hour === 6) {
-                        total6 += data.OpenParkings;
+                        total6 += openParkings;
                         count6++;
                         this.setState({
                             six: total6 / count6
                         })
                     }
                     if (hour === 7) {
-                        total7 += data.OpenParkings;
+                        total7 += openParkings;
                         count7++;
                         this.setState({
                             seven: total7 / count7
                         })
                     }
                     if (hour === 8) {
-                        total8 += data.OpenParkings;
+                        total8 += openParkings;
                         count8++;
                         this.setState({
                             eight: total8 / count8
                         })
                     }
                     if (hour === 9) {
-                        total9 += data.OpenParkings;
+                        total9 += openParkings;
                         count9++;
                         this.setState({
                             nine: total9 / count9
                         })
                     }
                     if (hour === 10) {
-                        total10 += data.OpenParkings;
+                        total10 += openParkings;
                         count10++;
                         this.setState({
                             ten: total10 / count10
@@ -173,98 +170,100 @@ class Dashboard extends React.Component {
                         console.log(total10);
                     }
                     if (hour === 11) {
-                        total11 += data.OpenParkings;
+                        total11 += openParkings;
                         count11++;
                         this.setState({
                             eleven: total11 / count11
                         })
                     }
                     if (hour === 12) {
-                        total12 += data.OpenParkings;
+                        total12 += openParkings;
                         count12++;
                         this.setState({
                             twelve: total12 / count12
                         })
                     }
                     if (hour === 13) {
-                        total13 += data.OpenParkings;
+                        total13 += openParkings;
                         count13++;
                         this.setState({
                             thirteen: total13 / count13
                         })
                     }
                     if (hour === 14) {
-                        total14 += data.OpenParkings;
+                        total14 += openParkings;
                         count14++;
                         this.setState({
                             fourteen: total14 / count14
                         })
                     }
                     if (hour === 15) {
-                        total15 += data.OpenParkings;
+                        total15 += openParkings;
                         count15++;
                         this.setState({
                             fifteen: total15 / count15
                         })
                     }
                     if (hour === 16) {
-                        total16 += data.OpenParkings;
+                        total16 += openParkings;
                         count16++;
                         this.setState({
                             sixteen: total16 / count16
                         })
                     }
                     if (hour === 17) {
-                        total17 += data.OpenParkings;
+                        total17 += openParkings;
                         count17++;
                         this.setState({
                             seventeen: total17 / count17
                         })
                     }
                     if (hour === 18) {
-                        total18 += data.OpenParkings;
+                        total18 += openParkings;
                         count18++;
                         this.setState({
                             eighteen: total18 / count18
                         })
                     }
                     if (hour === 19) {
-                        total19 += data.OpenParkings;
+                        total19 += openParkings;
                         count19++;
                         this.setState({
                             nineteen: total19 / count19
                         })
                     }
                     if (hour === 20) {
-                        total20 += data.OpenParkings;
+                        total20 += openParkings;
                         count20++;
                         this.setState({
                             twenty: total20 / count20
                         })
                     }
                     if (hour === 21) {
-                        total21 += data.OpenParkings;
+                        total21 += openParkings;
                         count21++;
                         this.setState({
                             twentyone: total21 / count21
                         })
                     }
                     if (hour === 22) {
-                        total22 += data.OpenParkings;
+                        total22 += openParkings;
                         count22++;
                         this.setState({
                             twentytwo: total22 / count22
                         })
+                        console.log(total22);
+                        console.log(count22);
                     }
                     if (hour === 23) {
-                        total23 += data.OpenParkings;
+                        total23 += openParkings;
                         count23++;
                         this.setState({
                             twentythree: total23 / count23
                         })
                     }
-                    if (hour === 24) {
-                        total24 += data.OpenParkings;
+                    if (hour === 0) {
+                        total24 += openParkings;
                         count24++;
                         this.setState({
                             twentyfour: total24 / count24
