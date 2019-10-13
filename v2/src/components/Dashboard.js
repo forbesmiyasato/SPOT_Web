@@ -1,9 +1,9 @@
 import React from 'react';
-import Chart from 'chart.js';
+//import Chart from 'chart.js';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { HorizontalBar, Bar } from 'react-chartjs-2';
-
-Chart.defaults.global.defaultFontColor = 'black';
+import { Bar } from 'react-chartjs-2';
+import { Chart } from "react-chartjs-2";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -37,6 +37,32 @@ class Dashboard extends React.Component {
             twentyfour: null,
             hours: []
         }
+
+        //var ctx = this.refs.myChart.getContext("2d");
+        //var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+        //gradientStroke.addColorStop(0, "#80b6f4");
+        //gradientStroke.addColorStop(1, "#f49080");
+        //var originalLineDraw = Chart.controllers.bar.prototype.draw;
+        //Chart.helpers.extend(Chart.controllers.bar.prototype, {
+        //    draw: function () {
+        //        originalLineDraw.apply(this, arguments);
+
+        //        var chart = this.chart;
+        //        var width = chart.chart.width,
+        //            height = chart.chart.height,
+        //            ctx = chart.chart.ctx;
+
+        //        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        //        gradient.addColorStop(0, 'rgba(151,187,205,0.7)');
+        //        gradient.addColorStop(1, 'rgba(151,187,205,0)');
+
+        //        //var gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
+        //        //gradient1.addColorStop(1, 'rgba(0,51,153,0.9)');
+        //        //gradient1.addColorStop(0, 'rgba(51,102,255,0.9)');
+        //        ctx.fillColor = gradient;
+        //        ctx.save();
+        //    }
+        //})
     }
 
     componentDidMount() {
@@ -274,38 +300,49 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        const data = (bar) => {
+            const ctx = bar.getContext("2d")
+            const gradient = ctx.createLinearGradient(0, 0, 800, 0);
+            gradient.addColorStop(0, "#9de3c8");
+            gradient.addColorStop(0.5, "#85dcba");
+            gradient.addColorStop(1, "#6ab095");
+            return {
+                labels: this.state.labels,
+                datasets: [
+                    {
+                        label: "Average Availability Per Hour",
+                        backgroundColor: gradient,
+                        data: [
+                            this.state.one, this.state.two, this.state.three, this.state.four, this.state.five, this.state.six, this.state.seven,
+                            this.state.eight, this.state.nine, this.state.ten, this.state.eleven, this.state.twelve, this.state.thirteen, this.state.fourteen,
+                            this.state.fifteen, this.state.sixteen, this.state.seventeen, this.state.eighteen, this.state.nineteen, this.state.twenty, this.state.twentyone,
+                            this.state.twentytwo, this.state.twentythree, this.state.twentyfour]
+                    }]
+            }
+        }
+
         return (
             <div className="dashboard">
                 <Bar
-                    data={{
-                        labels: this.state.labels,
-                        datasets: [
-                            {
-                                label: "Average Availability Per Hour",
-                                data: [
-                                    this.state.one, this.state.two, this.state.three, this.state.four, this.state.five, this.state.six, this.state.seven,
-                                    this.state.eight, this.state.nine, this.state.ten, this.state.eleven, this.state.twelve, this.state.thirteen, this.state.fourteen,
-                                    this.state.fifteen, this.state.sixteen, this.state.seventeen, this.state.eighteen, this.state.nineteen, this.state.twenty, this.state.twentyone,
-                                    this.state.twentytwo, this.state.twentythree, this.state.twentyfour]
-                            }]
-                    }}
+                    id="myChart"
+                    data={data}
                     options={{
                         legend: {
                             labels: {
-                                fontColor: "black"
+                                fontColor: "#777"
                             }
                         },
                         scales: {
                             yAxes: [{
                                 ticks: {
-                                    fontColor: "black",
+                                    fontColor: "#777",
                                     fontSize: 18,
                                     beginAtZero: true
                                 }
                             }],
                             xAxes: [{
                                 ticks: {
-                                    fontColor: "black",
+                                    fontColor: "#777",
                                     fontSize: 14,
                                     beginAtZero: true
                                 }

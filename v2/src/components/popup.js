@@ -6,7 +6,7 @@ class Popup extends React.Component {
         return (
             <div className='popup'>
                 <div className='popup_inner'>                
-                    <button onClick={this.props.closePopup}>close me</button>
+                    <button onClick={this.props.closePopup} class="btn-exit">Exit</button>
                     <Dashboard ID={this.props.ID}/>
                 </div>
             </div>
