@@ -128,171 +128,168 @@ class Dashboard extends React.Component {
                         total1 += openParkings;
                         count1++;
                         this.setState({
-                            one: total1 / count1
+                            one: (total1 / count1).toFixed(2)
                         })
                     }
                     if (hour === 2) {
                         total2 += openParkings;
                         count2++;
                         this.setState({
-                            two: total2 / count2
+                            two: (total2 / count2).toFixed(2)
                         })
                     }
                     if (hour === 3) {
                         total3 += openParkings;
                         count3++;
                         this.setState({
-                            three: total3 / count3
+                            three: (total3 / count3).toFixed(2)
                         })
                     }
                     if (hour === 4) {
                         total4 += openParkings;
                         count4++;
                         this.setState({
-                            four: total4 / count4
+                            four: (total4 / count4).toFixed(2)
                         })
                     }
                     if (hour === 5) {
                         total5 += openParkings;
                         count5++;
                         this.setState({
-                            five: total5 / count5
+                            five: (total5 / count5).toFixed(2)
                         })
                     }
                     if (hour === 6) {
                         total6 += openParkings;
                         count6++;
                         this.setState({
-                            six: total6 / count6
+                            six: (total6 / count6).toFixed(2)
                         })
                     }
                     if (hour === 7) {
                         total7 += openParkings;
                         count7++;
                         this.setState({
-                            seven: total7 / count7
+                            seven: (total7 / count7).toFixed(2)
                         })
                     }
                     if (hour === 8) {
                         total8 += openParkings;
                         count8++;
                         this.setState({
-                            eight: total8 / count8
+                            eight: (total8 / count8).toFixed(2)
                         })
                     }
                     if (hour === 9) {
                         total9 += openParkings;
                         count9++;
                         this.setState({
-                            nine: total9 / count9
+                            nine: (total9 / count9).toFixed(2)
                         })
                     }
                     if (hour === 10) {
                         total10 += openParkings;
                         count10++;
                         this.setState({
-                            ten: total10 / count10
+                            ten: (total10 / count10).toFixed(2)
                         })
-                        console.log(total10);
                     }
                     if (hour === 11) {
                         total11 += openParkings;
                         count11++;
                         this.setState({
-                            eleven: total11 / count11
+                            eleven: (total11 / count11).toFixed(2)
                         })
                     }
                     if (hour === 12) {
                         total12 += openParkings;
                         count12++;
                         this.setState({
-                            twelve: total12 / count12
+                            twelve: (total12 / count12).toFixed(2)
                         })
                     }
                     if (hour === 13) {
                         total13 += openParkings;
                         count13++;
                         this.setState({
-                            thirteen: total13 / count13
+                            thirteen: (total13 / count13).toFixed(2)
                         })
                     }
                     if (hour === 14) {
                         total14 += openParkings;
                         count14++;
                         this.setState({
-                            fourteen: total14 / count14
+                            fourteen: (total14 / count14).toFixed(2)
                         })
                     }
                     if (hour === 15) {
                         total15 += openParkings;
                         count15++;
                         this.setState({
-                            fifteen: total15 / count15
+                            fifteen: (total15 / count15).toFixed(2)
                         })
                     }
                     if (hour === 16) {
                         total16 += openParkings;
                         count16++;
                         this.setState({
-                            sixteen: total16 / count16
+                            sixteen: (total16 / count16).toFixed(2)
                         })
                     }
                     if (hour === 17) {
                         total17 += openParkings;
                         count17++;
                         this.setState({
-                            seventeen: total17 / count17
+                            seventeen: (total17 / count17).toFixed(2)
                         })
                     }
                     if (hour === 18) {
                         total18 += openParkings;
                         count18++;
                         this.setState({
-                            eighteen: total18 / count18
+                            eighteen: (total18 / count18).toFixed(2)
                         })
                     }
                     if (hour === 19) {
                         total19 += openParkings;
                         count19++;
                         this.setState({
-                            nineteen: total19 / count19
+                            nineteen: (total19 / count19).toFixed(2)
                         })
                     }
                     if (hour === 20) {
                         total20 += openParkings;
                         count20++;
                         this.setState({
-                            twenty: total20 / count20
+                            twenty: (total20 / count20).toFixed(2)
                         })
                     }
                     if (hour === 21) {
                         total21 += openParkings;
                         count21++;
                         this.setState({
-                            twentyone: total21 / count21
+                            twentyone: (total21 / count21).toFixed(2)
                         })
                     }
                     if (hour === 22) {
                         total22 += openParkings;
                         count22++;
                         this.setState({
-                            twentytwo: total22 / count22
-                        })
-                        console.log(total22);
-                        console.log(count22);
-                    }
+                            twentytwo: (total22 / count22).toFixed(2)
+                        })  
+                    }       
                     if (hour === 23) {
                         total23 += openParkings;
                         count23++;
                         this.setState({
-                            twentythree: total23 / count23
+                            twentythree: (total23 / count23).toFixed(2)
                         })
                     }
                     if (hour === 0) {
                         total24 += openParkings;
                         count24++;
                         this.setState({
-                            twentyfour: total24 / count24
+                            twentyfour: (total24 / count24).toFixed(2)
                         })
                     }
                 })
@@ -302,16 +299,17 @@ class Dashboard extends React.Component {
     render() {
         const data = (bar) => {
             const ctx = bar.getContext("2d")
-            const gradient = ctx.createLinearGradient(0, 0, 800, 0);
-            gradient.addColorStop(0, "#9de3c8");
-            gradient.addColorStop(0.5, "#85dcba");
-            gradient.addColorStop(1, "#6ab095");
+            const gradientStroke = ctx.createLinearGradient(500, 0, 100, 400);
+            gradientStroke.addColorStop(0, "#B1E9D3");
+            gradientStroke.addColorStop(0.2, "#9DE3C8");
+            gradientStroke.addColorStop(0.5, "#85DCBA");
+            gradientStroke.addColorStop(1, "#6AB095");
             return {
                 labels: this.state.labels,
                 datasets: [
                     {
                         label: "Average Availability Per Hour",
-                        backgroundColor: gradient,
+                        backgroundColor: gradientStroke,
                         data: [
                             this.state.one, this.state.two, this.state.three, this.state.four, this.state.five, this.state.six, this.state.seven,
                             this.state.eight, this.state.nine, this.state.ten, this.state.eleven, this.state.twelve, this.state.thirteen, this.state.fourteen,
