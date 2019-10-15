@@ -1,3 +1,19 @@
+/*
+0-600px: phone
+600-900px: tablet portrait
+900-1200px: tablet landscape'
+[1200 - 1800px] normal styles - desktop
+1800px +: big desktop
+*/
+/*
+    $breakpoint arguement choices:
+    -phone
+    -tablet-portrait
+    -tablet-landscape
+    -big-desktop
+
+    1em = 16px
+*/
 .row {
   max-width: 140rem;
   margin: 0 auto; }
@@ -37,9 +53,25 @@
 
 html {
   font-size: 62.5%; }
+  @media (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+  @media (max-width: 37.5em) {
+    html {
+      font-size: 37.5%; } }
+  @media (min-width: 112.5em) {
+    html {
+      font-size: 75%; } }
 
 body {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  padding: 3rem; }
+  @media (max-width: 56.25em) {
+    body {
+      padding: 0; } }
 
 @keyframes moveInLeft {
   0% {
@@ -72,10 +104,9 @@ body {
 body {
   font-family: "Lato";
   font-weight: 400;
-  /*font-size: 1.6rem;*/
+  font-size: 1.6rem;
   line-height: 1.7;
-  color: #777;
-  padding: 3rem; }
+  color: #777; }
 
 .heading-primary {
   color: #fff;
@@ -90,6 +121,10 @@ body {
     animation-duration: 1s;
     animation-timing-function: ease-out;
     margin-bottom: 4rem; }
+    @media (max-width: 37.5em) {
+      .heading-primary--main {
+        letter-spacing: 2rem;
+        font-size: 5rem; } }
   .heading-primary--sub {
     display: inline-block;
     font-size: 2rem;
@@ -100,6 +135,10 @@ body {
     /*border-bottom: 1px solid $color-white;*/
     box-shadow: 0px 2.7rem 2px -2.6rem #fff;
     margin-bottom: 2rem; }
+    @media (max-width: 37.5em) {
+      .heading-primary--sub {
+        letter-spacing: 1rem;
+        font-size: 2rem; } }
 
 .utility-center {
   text-align: center; }
@@ -109,6 +148,9 @@ body {
   font-size: 3rem;
   padding-top: 1rem;
   margin-left: 2rem; }
+  @media (max-width: 37.5em) {
+    .error {
+      font-size: 2rem; } }
 
 .section-display {
   background: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png"), top right no-repeat;
@@ -325,6 +367,14 @@ body {
   padding: 1rem;
   width: 40%;
   display: block; }
+  @media (max-width: 56.25em) {
+    .search-box {
+      padding: 0;
+      width: 50%; } }
+  @media (max-width: 37.5em) {
+    .search-box {
+      padding: 0;
+      width: 70%; } }
 
 /*.search-box:hover > .search-txt {
         width: 80%;
@@ -348,6 +398,10 @@ body {
   cursor: pointer;
   text-decoration: none;
   border: none; }
+  @media (max-width: 56.25em) {
+    .search-btn {
+      width: 5rem;
+      height: 5rem; } }
 
 .search-btn > i {
   font-size: 3rem; }
@@ -361,10 +415,18 @@ body {
   color: #777;
   font-size: 1.6rem;
   transition: 0.4s;
-  line-height: 40px;
-  width: 90%;
+  line-height: 4rem;
+  width: 88%;
   font-weight: 400;
   padding-left: 5px; }
+  @media (max-width: 56.25em) {
+    .search-txt {
+      width: 80%;
+      padding-top: 1rem;
+      padding-bottom: 1rem; } }
+  @media (max-width: 75em) {
+    .search-txt {
+      width: 80%; } }
 
 .text {
   padding-bottom: 20px; }
@@ -510,12 +572,16 @@ body {
     height: 40rem; }
 
 .header {
-  height: 95vh;
+  height: 90vh;
   background-image: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url(https://img.newatlas.com/autonomous-car-parking-2.jpg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fit=crop&h=540&q=40&rect=0%2C0%2C1610%2C905&w=960&s=d6b4e08e6355022b3e9557140011e749);
   background-size: cover;
   background-position: top;
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   position: relative; }
+  @media (max-width: 37.5em) {
+    .header {
+      height: 97vh;
+      clip-path: polygon(0 0, 100% 0, 100% 90vh, 0 100%); } }
   .header__logo-box {
     position: absolute;
     top: 4rem;
@@ -531,3 +597,6 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     width: 80%; }
+    @media (max-width: 37.5em) {
+      .header__text-box {
+        top: 47%; } }

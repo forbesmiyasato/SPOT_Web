@@ -40,6 +40,7 @@ class Map extends Component {
                     this.setState({
                         directions: result
                     });
+                    console.log(result);
                 } else {
                     console.error(`error fetching directions ${result}`);
                 }

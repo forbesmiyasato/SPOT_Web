@@ -8,7 +8,6 @@ import { Chart } from "react-chartjs-2";
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.ID);
         this.state = {
             labels: ['1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM', '12 AM'],
             one: null,
@@ -37,32 +36,6 @@ class Dashboard extends React.Component {
             twentyfour: null,
             hours: []
         }
-
-        //var ctx = this.refs.myChart.getContext("2d");
-        //var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-        //gradientStroke.addColorStop(0, "#80b6f4");
-        //gradientStroke.addColorStop(1, "#f49080");
-        //var originalLineDraw = Chart.controllers.bar.prototype.draw;
-        //Chart.helpers.extend(Chart.controllers.bar.prototype, {
-        //    draw: function () {
-        //        originalLineDraw.apply(this, arguments);
-
-        //        var chart = this.chart;
-        //        var width = chart.chart.width,
-        //            height = chart.chart.height,
-        //            ctx = chart.chart.ctx;
-
-        //        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        //        gradient.addColorStop(0, 'rgba(151,187,205,0.7)');
-        //        gradient.addColorStop(1, 'rgba(151,187,205,0)');
-
-        //        //var gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
-        //        //gradient1.addColorStop(1, 'rgba(0,51,153,0.9)');
-        //        //gradient1.addColorStop(0, 'rgba(51,102,255,0.9)');
-        //        ctx.fillColor = gradient;
-        //        ctx.save();
-        //    }
-        //})
     }
 
     componentDidMount() {
@@ -122,7 +95,6 @@ class Dashboard extends React.Component {
                     //convert data.timestamp from utc to local time (-7) then get the hour
                     var utcTime = data.timestamp;
                     hour = parseInt(utcTime.substring(11, 13)) - 7 < 0 ? parseInt(utcTime.substring(11, 13)) - 7 + 24 : parseInt(utcTime.substring(11, 13)) - 7;
-                    console.log(hour);
                     var openParkings = parseInt(data.OpenParkings);
                     if (hour === 1) {
                         total1 += openParkings;
