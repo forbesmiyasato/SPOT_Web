@@ -12,3 +12,15 @@
         font-size: 2rem;
     }
 }
+
+.pac-item {
+    @include respond (phone) {
+        font-size: 1rem;
+    }
+}
+
+.pac-item-query {
+    @include respond (phone) {
+        font-size: 1rem;
+    }
+}
