@@ -20,7 +20,6 @@ class ListView extends React.Component {
 
     render() {
         return (
-            <section className="section-display">
                 <h2 className="section-display__text">
                     Parking lots found
             </h2>
@@ -66,7 +65,6 @@ class ListView extends React.Component {
                     })
                     }
                 </div>
-            </section>
             )
     }
 }

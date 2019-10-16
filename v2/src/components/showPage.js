@@ -1,8 +1,8 @@
-
 import React from 'react';
 import Popup from './popup';
 import Axios from 'axios';
 import ListView from './ListView';
+import Switch from 'react-switch';
 
 class ShowPage extends React.Component {
     constructor(props) {
@@ -14,9 +14,11 @@ class ShowPage extends React.Component {
             direction: false,
             showPopup: false,
             showList: [],
-            parkingLotID: null
+            parkingLotID: null,
+            list: true
         };
         this.togglePopup = this.togglePopup.bind(this);
+        this.handleToggleSwitch = this.handleToggleSwitch.bind(this);
         console.log(this.props.location.Origin);
         if (this.props.location.Origin) {
             localStorage.setItem('OriginLat', this.props.location.Origin.latitude);
@@ -67,6 +69,10 @@ class ShowPage extends React.Component {
 
     }
 
+    handleToggleSwitch(list) {
+        this.setState({ list });
+    }
+
     togglePopup(id) {
         console.log(id);
         this.setState({
@@ -87,27 +93,37 @@ class ShowPage extends React.Component {
 
         return (
             <main>
-                <ListView key={1}
-                    showList={this.state.showList}
-                    togglePopup={this.togglePopup.bind(this)}
-                    handleClick={this.handleClick.bind(this)} />
-                {this.state.direction ?
-                    this.props.history.push({
-                        pathname: '/direction',
-                        Destination: { lat: this.state.DestinationLat, lng: this.state.DestinationLng },
-                        Origin: { lat: this.state.origin.latitude, lng: this.state.origin.longitude }
-                    })
-                    : null
-                }
-
-                {this.state.showPopup ?
-                    <Popup
-                        key={this.state.parkingLotID}
-                        closePopup={this.togglePopup.bind(this)}
-                        ID={this.state.parkingLotID}
+                <section className="section-display">
+                    <Switch
+                        onChange={this.handleToggleSwitch}
+                        checked={this.state.list}
+                        className="react-switch"
                     />
-                    : null
-                }
+                    {this.state.list ?
+                        <ListView key={1}
+                            showList={this.state.showList}
+                            togglePopup={this.togglePopup.bind(this)}
+                            handleClick={this.handleClick.bind(this)} />
+                        : null
+                    }
+                    {this.state.direction ?
+                        this.props.history.push({
+                            pathname: '/direction',
+                            Destination: { lat: this.state.DestinationLat, lng: this.state.DestinationLng },
+                            Origin: { lat: this.state.origin.latitude, lng: this.state.origin.longitude }
+                        })
+                        : null
+                    }
+
+                    {this.state.showPopup ?
+                        <Popup
+                            key={this.state.parkingLotID}
+                            closePopup={this.togglePopup.bind(this)}
+                            ID={this.state.parkingLotID}
+                        />
+                        : null
+                    }
+                </section>
             </main>
         )
     }
