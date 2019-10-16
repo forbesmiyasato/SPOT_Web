@@ -141,7 +141,7 @@ class ShowPage extends React.Component {
                             showList={this.state.showList}
                             togglePopup={this.togglePopup.bind(this)}
                             handleClick={this.handleClick.bind(this)}
-                            Origin={{ lat: this.state.origin.latitude, lng: this.state.origin.longitude }}
+                            Origin={{lat: this.state.origin.latitude, lng: this.state.origin.longitude }}
                 />
             }
                     {this.state.direction ?
