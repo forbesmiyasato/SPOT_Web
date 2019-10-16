@@ -3,6 +3,7 @@ import Popup from './popup';
 import Axios from 'axios';
 import ListView from './ListView';
 import Switch from 'react-switch';
+import MapView from './MapView';
 
 class ShowPage extends React.Component {
     constructor(props) {
@@ -135,8 +136,14 @@ class ShowPage extends React.Component {
                             showList={this.state.showList}
                             togglePopup={this.togglePopup.bind(this)}
                             handleClick={this.handleClick.bind(this)} />
-                        : null
-                    }
+                        : 
+                        <MapView key={1}
+                            showList={this.state.showList}
+                            togglePopup={this.togglePopup.bind(this)}
+                            handleClick={this.handleClick.bind(this)}
+                            Origin={{ lat: this.state.origin.latitude, lng: this.state.origin.longitude }}
+                />
+            }
                     {this.state.direction ?
                         this.props.history.push({
                             pathname: '/direction',

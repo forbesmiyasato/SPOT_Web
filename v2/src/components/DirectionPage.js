@@ -1,12 +1,9 @@
 import React from 'react';
 import { withScriptjs } from "react-google-maps";
-import Map from './Map';
+import Map from './DirectionMap';
 
 class DirectionPage extends React.Component {
 
-    //componentDidMount() {
-    //    console.log(this.props.location);
-    //};
     render() {
         const MapLoader = withScriptjs(Map);
         return (

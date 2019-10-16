@@ -160,6 +160,9 @@ body {
   .pac-item-query {
     font-size: 1rem; } }
 
+.map {
+  height: 75rem; }
+
 .section-display {
   background: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png"), top right no-repeat;
   /*background-image: url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png");*/
