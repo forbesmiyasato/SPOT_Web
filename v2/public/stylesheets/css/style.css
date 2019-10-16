@@ -582,6 +582,10 @@ body {
     background: white;
     height: 40rem; }
 
+.info-window {
+  height: 10rem;
+  width: 20rem; }
+
 .header {
   height: 90vh;
   background-image: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url(https://img.newatlas.com/autonomous-car-parking-2.jpg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fit=crop&h=540&q=40&rect=0%2C0%2C1610%2C905&w=960&s=d6b4e08e6355022b3e9557140011e749);

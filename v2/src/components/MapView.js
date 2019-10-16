@@ -47,15 +47,14 @@ class MapView extends React.Component {
                         visible={this.state.showingInfoWindow}>
                         <div>
                             {data ?
-                                (<div>
+                                (<div className="info-window">
                                     <h2>{data.Name}</h2>
                                     <a href={data.Image}>
                                         <img style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={data.Image} />
                                     </a>
-                                    <h3>{data.Distance} Miles</h3>
-                                    <h3>{data.Duration} {data.TimeUnit}</h3>
                                     <h3>Open Parkings: {data.OpenParkings}</h3>
-                                    
+                                    <h3>Distance: <br/> {data.Distance} Miles</h3>
+                                    <h3>Duration: {data.Duration} {data.TimeUnit}</h3>                       
                                 </div>)
                                 : null
                             }
