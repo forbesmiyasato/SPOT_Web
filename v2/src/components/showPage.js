@@ -97,6 +97,37 @@ class ShowPage extends React.Component {
                     <Switch
                         onChange={this.handleToggleSwitch}
                         checked={this.state.list}
+                        onColor="#86d3ff"
+                        uncheckedIcon={
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%",
+                                    fontSize: 15,
+                                    color: "white",
+                                    paddingRight: 2
+                                }}
+                            >
+                                List
+                            </div>
+                        }
+                        checkedIcon={
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%",
+                                    fontSize: 15,
+                                    color: "white",
+                                    paddingRight: 2
+                                }}
+                            >
+                                Map
+                            </div>
+                        }
                         className="react-switch"
                     />
                     {this.state.list ?
