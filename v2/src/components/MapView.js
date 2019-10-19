@@ -6,18 +6,27 @@ class MapView extends React.Component {
         super(props);
         this.state = {
             showingInfoWindow: false,
+            showingSidePanel: false,
             activeMarker: {},
             selectedPlace: {},
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
+        this.onSidePanelToggle = this.onSidePanelToggle.bind(this);
     }
 
     onMarkerClick(props, marker, e) {
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
-            showingInfoWindow: true
+            showingInfoWindow: true,
+            showingSidePanel: true
         });
+    }
+
+    onSidePanelToggle() {
+        this.setState({
+            showingSidePanel: !this.state.showingSidePanel
+        })
     }
 
     render() {
@@ -34,6 +43,7 @@ class MapView extends React.Component {
                         lng: this.props.Origin.lng
                     }}
                 >
+                
                     {this.props.showList.map((data) => {
                         return <Marker
                             onClick={this.onMarkerClick}
@@ -61,6 +71,24 @@ class MapView extends React.Component {
                         </div>
                     </InfoWindow>
                 </Map>
+                {this.state.showingSidePanel ?
+                    <div className='side-panel'>
+                        <div className={this.state.showingSidePanel ? 'side-panel__show' : null} >
+                            
+                            {data ?
+                                <div>
+                                <h3>Open Parkings: {data.OpenParkings}</h3>
+                                <h3>Distance: <br /> {data.Distance} Miles</h3>
+                                    <h3>Duration: {data.Duration} {data.TimeUnit}</h3>
+                                </div>
+                                :
+                                <h1> 11111111111111 </h1>
+                                }
+                        </div>
+                    </div>
+                    : null
+                }
+                <div onClick={this.onSidePanelToggle.bind(this)}> <h1> > </h1> </div>
             </div>
         )
     }

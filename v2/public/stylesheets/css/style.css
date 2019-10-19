@@ -163,6 +163,20 @@ body {
 .map {
   height: 75rem; }
 
+.react-switch {
+  /*display: inline-block;
+    float: right;
+    margin-right: 20rem;
+    margin-top: 2rem;
+    height: 5rem;
+    @include respond (phone) {
+        float: right;
+    }*/
+  transform: scale(1.5);
+  top: -1rem;
+  left: 3rem;
+  /*float: right;*/ }
+
 .section-display {
   background: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png"), top right no-repeat;
   /*background-image: url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png");*/
@@ -585,6 +599,23 @@ body {
 .info-window {
   height: 10rem;
   width: 20rem; }
+
+.side-panel {
+  position: absolute;
+  width: 0;
+  background-color: white;
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  transition: width 1s;
+  top: 4rem;
+  left: 4rem; }
+  .side-panel__show {
+    background-color: white;
+    width: 100rem;
+    height: 100%;
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
 
 .header {
   height: 90vh;

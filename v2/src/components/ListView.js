@@ -21,9 +21,6 @@ class ListView extends React.Component {
     render() {
         return (
             <main>
-                <h2 className="section-display__text">
-                    Parking lots found
-            </h2>
                 <div className="ui stackable four column grid">
                     {this.props.showList.map((data) => {
                         return (

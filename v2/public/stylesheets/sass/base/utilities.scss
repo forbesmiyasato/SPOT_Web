@@ -28,3 +28,18 @@
 .map {
     height: 75rem;
 }
+
+.react-switch {
+    /*display: inline-block;
+    float: right;
+    margin-right: 20rem;
+    margin-top: 2rem;
+    height: 5rem;
+    @include respond (phone) {
+        float: right;
+    }*/
+    transform: scale(1.5);
+    top: -1rem;
+    left: 3rem;
+    /*float: right;*/
+}

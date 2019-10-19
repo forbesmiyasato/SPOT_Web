@@ -95,55 +95,69 @@ class ShowPage extends React.Component {
         return (
             <main>
                 <section className="section-display">
-                    <Switch
-                        onChange={this.handleToggleSwitch}
-                        checked={this.state.list}
-                        onColor="#86d3ff"
-                        uncheckedIcon={
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "100%",
-                                    fontSize: 15,
-                                    color: "white",
-                                    paddingRight: 2
-                                }}
-                            >
-                                List
+                    <div className="ui grid">
+                        <div className="eight wide column">
+                            <h2 className="section-display__text">
+                                Parking lots found
+            </h2>
+                        </div>
+                        <div className="eight wide column">
+                            <h2 className="section-display__text">
+                                Change View
+                               
+                        <Switch
+                            onChange={this.handleToggleSwitch}
+                            checked={this.state.list}
+                            onColor="#86d3ff"
+                            //style={{ transform: [{ scaleX: 2 }, { scaleY: .8 }] }}
+                            uncheckedIcon={
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2
+                                    }}
+                                >
+                                    List
                             </div>
-                        }
-                        checkedIcon={
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "100%",
-                                    fontSize: 15,
-                                    color: "white",
-                                    paddingRight: 2
-                                }}
-                            >
-                                Map
+                            }
+                            checkedIcon={
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2
+                                    }}
+                                >
+                                    Map
                             </div>
-                        }
-                        className="react-switch"
-                    />
+                            }
+                            className="react-switch"
+                                />
+                            </h2>
+                        </div>
+                    </div>
                     {this.state.list ?
                         <ListView key={1}
                             showList={this.state.showList}
                             togglePopup={this.togglePopup.bind(this)}
                             handleClick={this.handleClick.bind(this)} />
-                        : 
+                        :
                         <MapView key={1}
                             showList={this.state.showList}
                             togglePopup={this.togglePopup.bind(this)}
                             handleClick={this.handleClick.bind(this)}
-                            Origin={{lat: this.state.origin.latitude, lng: this.state.origin.longitude }}
-                />
-            }
+                            Origin={{ lat: this.state.origin.latitude, lng: this.state.origin.longitude }}
+                        />
+                    }
                     {this.state.direction ?
                         this.props.history.push({
                             pathname: '/direction',

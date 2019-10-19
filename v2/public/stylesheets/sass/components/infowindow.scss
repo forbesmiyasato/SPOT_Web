@@ -2,3 +2,23 @@
     height: 10rem;
     width: 20rem;
 }
+
+.side-panel {
+    position: absolute;
+    width: 0;
+    background-color: white;
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    transition: width 1s;
+    top: 4rem;
+    left: 4rem;
+
+    &__show {
+        background-color: white;
+        width: 100rem;
+        height: 100%;
+        position: absolute;
+        top: 4rem;
+        left: 4rem;
+    }
+}
