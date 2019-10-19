@@ -43,3 +43,8 @@
     left: 3rem;
     /*float: right;*/
 }
+
+.always-visible {
+    z-index: 10000;
+    position: relative;
+}
