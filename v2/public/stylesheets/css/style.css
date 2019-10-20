@@ -605,22 +605,46 @@ body {
   width: 20rem; }
 
 .side-panel {
-  position: absolute;
-  width: 0;
+  /*position: absolute;*/
+  width: 20rem;
   background-color: white;
-  -webkit-transition: width 1s;
-  -moz-transition: width 1s;
-  transition: width 1s;
-  top: 4rem;
-  left: 4rem; }
+  -webkit-transition: transform 1s;
+  -moz-transition: transform 1s;
+  transition: transform 1s;
+  /*display: none;*/
+  float: left;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%); }
+  .side-panel ul {
+    margin-top: 0px;
+    padding: 0px;
+    color: black;
+    list-style-type: none;
+    text-align: left; }
+  .side-panel li {
+    padding: 30px 0 20px 20px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid black;
+    opacity: 0; }
   .side-panel__show {
-    background-color: white;
-    width: 100rem;
-    height: 100%;
-    position: absolute;
-    top: 4rem;
-    left: 4rem; }
+    transform: none; }
 
+.list-show {
+  opacity: 1 !important; }
+
+.menu-button {
+  height: 25px;
+  width: 25px;
+  float: left;
+  transform: translateX(-5%); }
+
+.menu {
+  position: absolute;
+  top: 3rem; }
+
+/*.side-panel {
+
+}*/
 .header {
   height: 90vh;
   background-image: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url(https://img.newatlas.com/autonomous-car-parking-2.jpg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fit=crop&h=540&q=40&rect=0%2C0%2C1610%2C905&w=960&s=d6b4e08e6355022b3e9557140011e749);

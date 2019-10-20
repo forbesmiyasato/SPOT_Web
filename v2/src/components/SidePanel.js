@@ -4,8 +4,10 @@ class SidePanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false
+            show: false,
+            showList: this.props.Data
         }
+        console.log(this.props.Data);
     }
 
     onSidePanelToggle() {
@@ -15,18 +17,26 @@ class SidePanel extends React.Component {
     }
 
     render() {
-
-        if (this.state.show) {
-            return (
-                <div>
-                    <button onClick={this.onSidePanelToggle.bind(this)} className="always-visible"> <h1 className="always-visible"> > </h1> </button>
-                    <h1> 11111111111111 </h1>
+      
+        return (
+            <div className="menu">
+                <div className={(this.state.show ? "side-panel__show " : " ") + "side-panel always-visible"}>
+                        <ul>
+                            {this.state.showList.map(data => {
+                            return (
+                                <li className={this.state.show ? "list-show" : " "}>
+                                        {data.Name}
+                             </li>
+                                )
+                            })}
+                        </ul>
                 </div>
-            )
-        }
-        else {
-            return <button onClick={this.onSidePanelToggle.bind(this)} className="always-visible"> <h1 className="always-visible"> > </h1> </button>
-        }
+                <div className="menu-button">
+                    <button onClick={this.onSidePanelToggle.bind(this)} className="always-visible"> <h1 className="always-visible"> > </h1> </button>
+                </div>
+            </div>
+        )
+
     }
 }
 

@@ -26,11 +26,13 @@ class MapView extends React.Component {
     render() {
         console.log(this.state.selectedPlace);
         var data = this.state.selectedPlace.info;
+   const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
         return (
             <main>
                 <div className="map">
                     <Map google={this.props.google}
+                        containerStyle = { containerStyle }
                         style={{ width: '90%', height: '90%', position: 'absolute', left: '4rem', top: '3rem' }}
                         zoom={10}
                         mapTypeControl={false}
@@ -39,7 +41,9 @@ class MapView extends React.Component {
                             lng: this.props.Origin.lng
                         }}
                     >
-
+                        <div>
+                            <SidePanel Data={this.props.showList} />
+                        </div>
                         {this.props.showList.map((data) => {
                             return <Marker
                                 onClick={this.onMarkerClick}
@@ -67,12 +71,7 @@ class MapView extends React.Component {
                             </div>
                         </InfoWindow>
                     </Map>
-                    }
-                    <div className='side-panel'>
-                        <div className={this.state.showingSidePanel ? 'side-panel__show' : null} >
-                            <SidePanel Data={data} />
-                        </div>
-                    </div>
+
 
                 </div>
 
