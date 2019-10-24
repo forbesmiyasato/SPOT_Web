@@ -642,7 +642,10 @@ body {
   height: 25px;
   width: 25px;
   float: left;
-  transform: translateX(-5%); }
+  /*transform: translateX(-5%);*/
+  /*&__clicked {
+        transform: ta
+    }*/ }
 
 .menu {
   position: absolute;
