@@ -77,9 +77,7 @@ class MapView extends React.Component {
                         }}
                     >
                         <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} />
-                        <div>
-                            <SidePanel Data={this.props.showList} />
-                        </div>
+                        
                 
 
                         <InfoWindow
@@ -101,7 +99,9 @@ class MapView extends React.Component {
                             </div>
                         </InfoWindow>
                     </Map>
-
+                    <div>
+                        <SidePanel Data={this.props.showList} />
+                    </div>
 
                 </div>
 

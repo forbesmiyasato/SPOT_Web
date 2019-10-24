@@ -36,8 +36,8 @@ class SidePanel extends React.Component {
                             })}
                         </div>
                 </div>
-                <div className="menu-button">
-                    <button onClick={this.onSidePanelToggle.bind(this)} className="always-visible"> <h1 className="always-visible"> > </h1> </button>
+                <div className={(this.state.show ? "menu-button__clicked " : " ") + "menu-button"}>
+                    <button onClick={this.onSidePanelToggle.bind(this)} className="slide-button">  <i class="right chevron icon"></i> </button>
                 </div>
             </div>
         )

@@ -181,6 +181,9 @@ body {
   z-index: 10000;
   position: relative; }
 
+.ui.tiny.image {
+  width: 15rem; }
+
 .section-display {
   background: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png"), top right no-repeat;
   /*background-image: url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png");*/
@@ -606,7 +609,7 @@ body {
 
 .side-panel {
   /*position: absolute;*/
-  width: 20rem;
+  width: 30rem;
   background-color: white;
   -webkit-transition: transform 1s;
   -moz-transition: transform 1s;
@@ -614,7 +617,10 @@ body {
   /*display: none;*/
   float: left;
   transform: translateX(-100%);
-  -webkit-transform: translateX(-100%); }
+  -webkit-transform: translateX(-100%);
+  top: 3rem;
+  left: 4rem;
+  height: 90%; }
   .side-panel ul {
     margin-top: 0px;
     padding: 0px;
@@ -639,21 +645,37 @@ body {
   font-size: 0.6vw; }
 
 .menu-button {
+  position: absolute;
   height: 25px;
   width: 25px;
   float: left;
-  /*transform: translateX(-5%);*/
-  /*&__clicked {
-        transform: ta
-    }*/ }
+  transform: translateX(-30rem);
+  -webkit-transition: transform 1s;
+  -moz-transition: transform 1s;
+  transition: transform 1s;
+  top: 3rem;
+  left: 34rem; }
+  .menu-button__clicked {
+    transform: none; }
 
 .menu {
   position: absolute;
-  top: 3rem;
-  left: 4rem; }
+  height: 100%; }
 
 /*.side-panel {
 
+}*/
+.slide-button {
+  background-color: white;
+  border: none;
+  height: 5rem;
+  width: 3rem;
+  outline: none;
+  border: none; }
+
+/*button:active {
+    outline: none;
+    border: none;
 }*/
 .home-header {
   height: 90vh;

@@ -5,7 +5,7 @@
 
 .side-panel {
     /*position: absolute;*/
-    width: 20rem;
+    width: 30rem;
     background-color: white;
     -webkit-transition: transform 1s;
     -moz-transition: transform 1s;
@@ -14,6 +14,9 @@
     float: left;
     transform: translateX(-100%);
     -webkit-transform: translateX(-100%);
+    top: 3rem;
+    left: 4rem;
+    height:90%;
     & ul {
         margin-top: 0px;
         padding: 0px;
@@ -46,22 +49,39 @@
     font-size: 0.6vw;
 }
 .menu-button {
+    position:absolute;
     height: 25px;
     width: 25px;
     float: left;
-    /*transform: translateX(-5%);*/
-
-    /*&__clicked {
-        transform: ta
-    }*/
+    transform: translateX(-30rem);
+    -webkit-transition: transform 1s;
+    -moz-transition: transform 1s;
+    transition: transform 1s;
+    top:3rem;
+    left:34rem;
+    &__clicked {
+        transform: none;
+    }
 }
 
 .menu {
     position: absolute;
-    top: 3rem;
-    left: 4rem;
+    height:100%;
 }
 /*.side-panel {
 
 }*/
 
+.slide-button {
+    background-color: white;
+    border: none;
+    height: 5rem;
+    width: 3rem;
+    outline: none;
+    border: none;
+}
+
+/*button:active {
+    outline: none;
+    border: none;
+}*/
