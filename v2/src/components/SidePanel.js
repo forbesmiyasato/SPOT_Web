@@ -21,15 +21,20 @@ class SidePanel extends React.Component {
         return (
             <div className="menu">
                 <div className={(this.state.show ? "side-panel__show " : " ") + "side-panel always-visible"}>
-                        <ul>
+                        <div className="ui relaxed divided list">
                             {this.state.showList.map(data => {
                             return (
-                                <li className={this.state.show ? "list-show" : " "}>
-                                        {data.Name}
-                             </li>
+                                <div className={(this.state.show ? "list-show " : " ") + "item"} onClick={() => { console.log("clicked") }}>
+                                    <img className="ui top aligned tiny image" src={data.Image}/>
+                                    <div className="content">
+                                        <div className="header">
+                                            {data.Name}
+                                        </div>
+                                    </div>
+                             </div>
                                 )
                             })}
-                        </ul>
+                        </div>
                 </div>
                 <div className="menu-button">
                     <button onClick={this.onSidePanelToggle.bind(this)} className="always-visible"> <h1 className="always-visible"> > </h1> </button>

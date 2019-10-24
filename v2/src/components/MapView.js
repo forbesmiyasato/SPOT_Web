@@ -23,16 +23,24 @@ class MapView extends React.Component {
         });
     }
 
+    //shouldComponentUpdate(nextProps, nextState) {
+    //    if (JSON.stringify(this.props.places) === JSON.stringify(nextProps.places) && this.markersRendered) {
+    //        return false;
+    //    }
+    //    this.markersRendered = true;
+    //    return true;
+    //}
+
     render() {
         console.log(this.state.selectedPlace);
         var data = this.state.selectedPlace.info;
-   const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
+        const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
         return (
             <main>
                 <div className="map">
                     <Map google={this.props.google}
-                        containerStyle = { containerStyle }
+                        containerStyle={containerStyle}
                         style={{ width: '90%', height: '90%', position: 'absolute', left: '4rem', top: '3rem' }}
                         zoom={10}
                         mapTypeControl={false}

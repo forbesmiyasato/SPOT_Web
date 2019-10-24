@@ -122,13 +122,13 @@ class LandingPage extends React.Component {
             return <Spinner />
         }
         return (
-            <header className="header">
+            <header className="home-header">
                 {this.state.errorMessage && !this.state.origin ?
                     <h1 class="error"> {this.state.errorMessage} </h1>
                     : null
                 }
-                <div className="header__logo-box">S<i className="fas fa-parking"></i>OT</div>
-                <div className="header__text-box">
+                <div className="home-header__logo-box">S<i className="fas fa-parking"></i>OT</div>
+                <div className="home-header__text-box">
                     <h1 className="heading-primary">
                         <span className="heading-primary--main">Spot</span>
                         <span className="heading-primary--sub">Single Parking Observation Tool</span>
