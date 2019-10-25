@@ -59,6 +59,7 @@ class MapView extends React.Component {
         if (map) {
             let center = new maps.LatLng(lat, lng);
             map.panTo(center);
+            map.setZoom(13);
         }
         console.log(map.__proto__);
         console.log("clicked");
