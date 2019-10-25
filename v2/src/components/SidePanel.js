@@ -7,13 +7,17 @@ class SidePanel extends React.Component {
             show: false,
             showList: this.props.Data
         }
-        console.log(this.props.Data);
+        console.log(this.props.onListItemClick);
     }
 
     onSidePanelToggle() {
         this.setState({
             show: !this.state.show
         })
+        //setTimeout(function () {
+        //    $(formMessages).removeClass('error');
+        //    //....and whatever else you need to do
+        //}, 3000);
     }
 
     render() {
@@ -24,7 +28,7 @@ class SidePanel extends React.Component {
                         <div className="ui relaxed divided list">
                             {this.state.showList.map(data => {
                             return (
-                                <div className={(this.state.show ? "list-show " : " ") + "item"} onClick={() => { console.log("clicked") }}>
+                                <div className={(this.state.show ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data.Lat, data.Lng)}>
                                     <img className="ui top aligned tiny image" src={data.Image}/>
                                     <div className="content">
                                         <div className="header">

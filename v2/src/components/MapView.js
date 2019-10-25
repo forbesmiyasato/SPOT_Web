@@ -46,6 +46,22 @@ class MapView extends React.Component {
             selectedPlace: {},
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
+        this.mapRef = React.createRef();
+        this.onListItemClick = this.onListItemClick.bind(this);
+    }
+
+    onListItemClick(lat, lng) {
+        const map = this.mapRef;
+        const google = this.props.google;
+        const maps = google.maps;
+        console.log(lat);
+        console.log(lng);
+        if (map) {
+            let center = new maps.LatLng(lat, lng);
+            map.panTo(center);
+        }
+        console.log(map.__proto__);
+        console.log("clicked");
     }
 
     onMarkerClick(props, marker, e) {
@@ -75,11 +91,11 @@ class MapView extends React.Component {
                             lat: this.props.Origin.lat,
                             lng: this.props.Origin.lng
                         }}
+                        onReady={(mapProps, map) => (this.mapRef = map)} 
+                        //ref={(map) => this.mapRef = map}
                     >
                         <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} />
                         
-                
-
                         <InfoWindow
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
@@ -100,7 +116,7 @@ class MapView extends React.Component {
                         </InfoWindow>
                     </Map>
                     <div>
-                        <SidePanel Data={this.props.showList} />
+                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} />
                     </div>
 
                 </div>
@@ -110,9 +126,9 @@ class MapView extends React.Component {
     }
 }
 
-export default GoogleApiWrapper({
+export default GoogleApiWrapper((props) => ({
     apiKey: "AIzaSyB-7ORj7iEWauVJmKQG6nUvEaq0unSBA9Y"
-})(MapView)
+}))(MapView)
 
         //{this.props.showList.map((data) => {
                         //    return <Marker
