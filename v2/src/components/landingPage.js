@@ -7,6 +7,7 @@ class LandingPage extends React.Component {
 
     constructor(props) {
         super(props);
+        window.localStorage.clear();
         this.autoCompleteInput = React.createRef();
         this.autoComplete = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);

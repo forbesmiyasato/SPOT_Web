@@ -8,15 +8,24 @@ import MapView from './MapView';
 class ShowPage extends React.Component {
     constructor(props) {
         super(props);
+        var listView;
+        if (null === localStorage.getItem("listView")) {
+            listView = true;
+        }
+        else {
+            listView = JSON.parse(localStorage.getItem('listView'));
+            console.log("this view is: " + listView)
+        }
+        //setting origin to 0 is to avoid origin being undefined when starting show page on map view (line 168) might cause errors need to monitor this
         this.state = {
-            origin: null,
+            origin: 0,
             DestinationLat: null,
             DestinationLng: null,
             direction: false,
             showPopup: false,
             showList: [],
             parkingLotID: null,
-            list: true
+            list: listView
         };
         this.togglePopup = this.togglePopup.bind(this);
         this.handleToggleSwitch = this.handleToggleSwitch.bind(this);
@@ -71,7 +80,10 @@ class ShowPage extends React.Component {
     }
 
     handleToggleSwitch(list) {
+        localStorage.setItem('listView', JSON.stringify(!this.state.list));
         this.setState({ list });
+        console.log(this.state.list);
+
     }
 
     togglePopup(id) {
@@ -104,43 +116,43 @@ class ShowPage extends React.Component {
                         <div className="eight wide column">
                             <h2 className="section-display__text">
                                 Change View
-                               
+
                         <Switch
-                            onChange={this.handleToggleSwitch}
-                            checked={this.state.list}
-                            onColor="#86d3ff"
-                            //style={{ transform: [{ scaleX: 2 }, { scaleY: .8 }] }}
-                            uncheckedIcon={
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2
-                                    }}
-                                >
-                                    List
+                                    onChange={this.handleToggleSwitch}
+                                    checked={this.state.list}
+                                    onColor="#86d3ff"
+                                    //style={{ transform: [{ scaleX: 2 }, { scaleY: .8 }] }}
+                                    uncheckedIcon={
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                height: "100%",
+                                                fontSize: 15,
+                                                color: "white",
+                                                paddingRight: 2
+                                            }}
+                                        >
+                                            List
                             </div>
-                            }
-                            checkedIcon={
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2
-                                    }}
-                                >
-                                    Map
+                                    }
+                                    checkedIcon={
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                height: "100%",
+                                                fontSize: 15,
+                                                color: "white",
+                                                paddingRight: 2
+                                            }}
+                                        >
+                                            Map
                             </div>
-                            }
-                            className="react-switch"
+                                    }
+                                    className="react-switch"
                                 />
                             </h2>
                         </div>
