@@ -53,3 +53,12 @@
     width: 15rem;
     height: 10rem;
 }
+
+.list-show.item:last-of-type {
+    border-bottom: 1px solid rgba(34,36,38,.15);
+}
+
+.ui.list .list > .item:last-child, .ui.list > .item:last-child, ol.ui.list li:last-child, ul.ui.list li:last-child {
+    padding-bottom: .42857143em;
+    border-bottom: 1px solid rgba(34,36,38,.15);
+}
