@@ -124,7 +124,9 @@ class LandingPage extends React.Component {
         return (
             <header className="home-header">
                 {this.state.errorMessage && !this.state.origin ?
-                    <h1 class="error"> {this.state.errorMessage} </h1>
+                    <div class="ui red message">
+                            {this.state.errorMessage}
+                    </div>
                     : null
                 }
                 <div className="home-header__logo-box">S<i className="fas fa-parking"></i>OT</div>
