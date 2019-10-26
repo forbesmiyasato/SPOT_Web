@@ -54,15 +54,11 @@ class MapView extends React.Component {
         const map = this.mapRef;
         const google = this.props.google;
         const maps = google.maps;
-        console.log(lat);
-        console.log(lng);
         if (map) {
             let center = new maps.LatLng(lat, lng);
             map.panTo(center);
             map.setZoom(13);
         }
-        console.log(map.__proto__);
-        console.log("clicked");
     }
 
     onMarkerClick(props, marker, e) {
@@ -72,7 +68,19 @@ class MapView extends React.Component {
             showingInfoWindow: true,
             showingSidePanel: true
         });
-        //console.log(this.state.selectedPlace)
+
+        var map = this.mapRef;
+        const google = this.props.google;
+        const maps = google.maps;
+        if (map) {
+            let center = new maps.LatLng(this.state.selectedPlace.position.lat, this.state.selectedPlace.position.lng);
+            map.panTo(center);
+            var zoom = map.getZoom();
+            if (zoom < 16) {
+                map.setZoom(zoom + 2);
+            }
+        }
+        console.log(this.state.selectedPlace);
     }
 
     render() {
@@ -103,7 +111,7 @@ class MapView extends React.Component {
                             <div>
                                 {selectedPlaceData ?
                                     (<div className="info-window">
-                                        <h2>selectedPlaceData.Name</h2>
+                                        <h2>{selectedPlaceData.Name}</h2>
                                         <a href={selectedPlaceData.Image}>
                                             <img style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={selectedPlaceData.Image} />
                                         </a>
