@@ -26,7 +26,7 @@ class SidePanel extends React.Component {
         var showData = this.props.showData;
         return (
             <div className="menu">
-                <div className={(this.state.show ? "side-panel__show " : " ") + "side-panel always-visible"}>
+                <div className={(this.state.show || this.props.showData ? "side-panel__show " : " ") + "side-panel always-visible"}>
                     <div className="ui relaxed divided list">
                         {this.state.showList.map(data => {
                             return (<>

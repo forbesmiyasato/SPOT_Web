@@ -71,7 +71,8 @@ class MapView extends React.Component {
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true,
-            showingList: false
+            showingList: false,
+            showData: props.data
         });
 
         var map = this.mapRef;
