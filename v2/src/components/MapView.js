@@ -49,6 +49,7 @@ class MapView extends React.Component {
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.mapRef = React.createRef();
         this.onListItemClick = this.onListItemClick.bind(this);
+        this.onBack = this.onBack.bind(this);
     }
 
     onListItemClick(data) {
@@ -63,6 +64,13 @@ class MapView extends React.Component {
         this.setState({
             showingList: false,
             showData: data
+        })
+    }
+
+    onBack() {
+        this.setState({
+            showData: null,
+            showingList: true
         })
     }
 
@@ -130,7 +138,8 @@ class MapView extends React.Component {
                         </InfoWindow>
                     </Map>
                     <div>
-                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList} showData={this.state.showData} handleClick={this.props.handleClick} />
+                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
+                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} />
                     </div>
 
                 </div>

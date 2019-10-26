@@ -53,7 +53,7 @@ class SidePanel extends React.Component {
                         {!this.props.showingList ?
                             <div className="list-show item">
                                 <div class="ui blue buttons">
-                                    <button class="ui labeled icon button">
+                                    <button class="ui labeled icon button" onClick={this.props.onBack.bind(this)}>
                                         <i class="left chevron icon"></i>
                                         Back
                                     </button>
