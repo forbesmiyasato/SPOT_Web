@@ -52,7 +52,7 @@ class ListView extends React.Component {
                                     </div>
                                     <div className="card__side card__side--back">
                                         <div className="card__cta">
-                                            <AvailabilityChart key={data._id} UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} />
+                                            <AvailabilityChart key={data._id} UnavailableParkings={data.TotalParkings - data.OpenParkings} OpenParkings={data.OpenParkings} color="#fff"/>
                                             <button onClick={this.props.handleClick.bind(this, data.Lat, data.Lng)} className="btn btn--white btn--animated btn__directions"> Get Directions <i className="icon-basic-geolocalize-01"></i></button>
                                             <button onClick={this.props.togglePopup.bind(this, data._id)} className="btn btn--white btn--animated btn__statistics"> See Statistics <i className="icon-ecommerce-graph2"></i></button>
                                         </div>

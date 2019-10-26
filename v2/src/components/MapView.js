@@ -41,24 +41,29 @@ class MapView extends React.Component {
         super(props);
         this.state = {
             showingInfoWindow: false,
-            showingSidePanel: false,
+            showingList: true,
             activeMarker: {},
             selectedPlace: {},
+            showData: null
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.mapRef = React.createRef();
         this.onListItemClick = this.onListItemClick.bind(this);
     }
 
-    onListItemClick(lat, lng) {
+    onListItemClick(data) {
         const map = this.mapRef;
         const google = this.props.google;
         const maps = google.maps;
         if (map) {
-            let center = new maps.LatLng(lat, lng);
+            let center = new maps.LatLng(data.Lat, data.Lng);
             map.panTo(center);
             map.setZoom(13);
         }
+        this.setState({
+            showingList: false,
+            showData: data
+        })
     }
 
     onMarkerClick(props, marker, e) {
@@ -66,7 +71,7 @@ class MapView extends React.Component {
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true,
-            showingSidePanel: true
+            showingList: false
         });
 
         var map = this.mapRef;
@@ -101,7 +106,6 @@ class MapView extends React.Component {
                             lng: this.props.Origin.lng
                         }}
                         onReady={(mapProps, map) => (this.mapRef = map)} 
-                        //ref={(map) => this.mapRef = map}
                     >
                         <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} />
                         
@@ -125,7 +129,7 @@ class MapView extends React.Component {
                         </InfoWindow>
                     </Map>
                     <div>
-                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} />
+                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList} showData={this.state.showData} handleClick={this.props.handleClick} />
                     </div>
 
                 </div>

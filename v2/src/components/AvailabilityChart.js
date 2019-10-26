@@ -23,7 +23,7 @@ class AvailabilityChart extends Component {
             }],
             text: display
         }
-        Chart.defaults.global.defaultFontColor = "#fff";
+        Chart.defaults.global.defaultFontColor = this.props.color;
         //Chart.defaults.global.defaultFontFamily = "Arial"
         var originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
         Chart.helpers.extend(Chart.controllers.doughnut.prototype, {

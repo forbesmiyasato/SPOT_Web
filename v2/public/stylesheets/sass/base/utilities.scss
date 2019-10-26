@@ -50,7 +50,7 @@
 }
 
 .ui.tiny.image {
-    width: 15rem;
+    width: 14rem;
     height: 10rem;
 }
 
@@ -69,4 +69,19 @@
 
 main {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.description h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button.ui.button.list-direction {
+    float: right;
+    /*margin-left: 4rem;*/
+    margin-top: 3rem;
+}
+
+.ui.list .list > .item .header, .ui.list > .item .header {
+    display: inline-block;
 }

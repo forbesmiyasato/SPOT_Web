@@ -182,7 +182,7 @@ body {
   position: relative; }
 
 .ui.tiny.image {
-  width: 15rem;
+  width: 14rem;
   height: 10rem; }
 
 .list-show.item:last-of-type {
@@ -197,6 +197,18 @@ body {
 
 main {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); }
+
+.description h4 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+.button.ui.button.list-direction {
+  float: right;
+  /*margin-left: 4rem;*/
+  margin-top: 3rem; }
+
+.ui.list .list > .item .header, .ui.list > .item .header {
+  display: inline-block; }
 
 .section-display {
   background: linear-gradient(to right, rgba(157, 227, 200, 0.5), rgba(106, 176, 149, 0.5)), url("https://media.wired.com/photos/5926b773f3e2356fd800a373/master/w_2130,c_limit/WarOnParking_TA_GettyImages-83314262.png"), top right no-repeat;
