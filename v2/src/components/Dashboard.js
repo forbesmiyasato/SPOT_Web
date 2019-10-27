@@ -1,9 +1,6 @@
 import React from 'react';
-//import Chart from 'chart.js';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
-import { Chart } from "react-chartjs-2";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -264,6 +261,7 @@ class Dashboard extends React.Component {
                             twentyfour: (total24 / count24).toFixed(2)
                         })
                     }
+                    return data;
                 })
             })
     }

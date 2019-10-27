@@ -1,13 +1,13 @@
 import React from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react'
 import SidePanel from './SidePanel';
+//TODO highlight marker when selected from list, and add hover effects for markers, get rid of overflowing side panel!
 
 class MarkersList extends React.Component {
 
     constructor(props) {
         super(props);
         this.markersRendered = false;
-        console.log(this.props.showList);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -40,6 +40,7 @@ class MapView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            showList: [],
             showingInfoWindow: false,
             showingList: true,
             activeMarker: {},
@@ -50,6 +51,14 @@ class MapView extends React.Component {
         this.mapRef = React.createRef();
         this.onListItemClick = this.onListItemClick.bind(this);
         this.onBack = this.onBack.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState(
+            {
+                showList: this.props.showList
+            }
+        );
     }
 
     onListItemClick(data) {
@@ -94,12 +103,10 @@ class MapView extends React.Component {
                 map.setZoom(zoom + 2);
             }
         }
-        console.log(this.state.selectedPlace);
     }
 
     render() {
         var selectedPlaceData = this.state.selectedPlace.data;
-        var data = this.state.selectedPlace.info;
         const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
         return (
@@ -114,10 +121,11 @@ class MapView extends React.Component {
                             lat: this.props.Origin.lat,
                             lng: this.props.Origin.lng
                         }}
-                        onReady={(mapProps, map) => (this.mapRef = map)} 
+                        onReady={(mapProps, map) => (this.mapRef = map)}
                     >
                         <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} />
-                        
+                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
+                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} />
                         <InfoWindow
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
@@ -126,7 +134,7 @@ class MapView extends React.Component {
                                     (<div className="info-window">
                                         <h2>{selectedPlaceData.Name}</h2>
                                         <a href={selectedPlaceData.Image}>
-                                            <img style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={selectedPlaceData.Image} />
+                                            <img alt={selectedPlaceData.Name} style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={selectedPlaceData.Image} />
                                         </a>
                                         <h3>Open Parkings: {selectedPlaceData.OpenParkings}</h3>
                                         <h3>Distance: <br /> {selectedPlaceData.Distance} Miles</h3>
@@ -136,11 +144,10 @@ class MapView extends React.Component {
                                 }
                             </div>
                         </InfoWindow>
+                        <div>
+                        </div>
                     </Map>
-                    <div>
-                        <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
-                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} />
-                    </div>
+
 
                 </div>
 
@@ -152,11 +159,3 @@ class MapView extends React.Component {
 export default GoogleApiWrapper((props) => ({
     apiKey: "AIzaSyB-7ORj7iEWauVJmKQG6nUvEaq0unSBA9Y"
 }))(MapView)
-
-        //{this.props.showList.map((data) => {
-                        //    return <Marker
-                        //        onClick={this.onMarkerClick}
-                        //        info={data}
-                        //        position={{ lat: data.Lat, lng: data.Lng }}
-                        //    />
-                        //})}

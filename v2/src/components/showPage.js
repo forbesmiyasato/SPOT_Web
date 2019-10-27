@@ -8,13 +8,13 @@ import MapView from './MapView';
 class ShowPage extends React.Component {
     constructor(props) {
         super(props);
+        console.log("Still part of show page")
         var listView;
         if (null === localStorage.getItem("listView")) {
             listView = true;
         }
         else {
             listView = JSON.parse(localStorage.getItem('listView'));
-            console.log("this view is: " + listView)
         }
         //setting origin to 0 is to avoid origin being undefined when starting show page on map view (line 168) might cause errors need to monitor this
         this.state = {
@@ -29,7 +29,6 @@ class ShowPage extends React.Component {
         };
         this.togglePopup = this.togglePopup.bind(this);
         this.handleToggleSwitch = this.handleToggleSwitch.bind(this);
-        console.log(this.props.location.Origin);
         if (this.props.location.Origin) {
             localStorage.setItem('OriginLat', this.props.location.Origin.latitude);
             localStorage.setItem('OriginLng', this.props.location.Origin.longitude);
@@ -82,8 +81,6 @@ class ShowPage extends React.Component {
     handleToggleSwitch(list) {
         localStorage.setItem('listView', JSON.stringify(!this.state.list));
         this.setState({ list });
-        console.log(this.state.list);
-
     }
 
     togglePopup(id) {
@@ -103,7 +100,6 @@ class ShowPage extends React.Component {
     }
 
     render() {
-
         return (
             <main>
                 <section className="section-display">
@@ -163,7 +159,7 @@ class ShowPage extends React.Component {
                             togglePopup={this.togglePopup.bind(this)}
                             handleClick={this.handleClick.bind(this)} />
                         :
-                        <MapView key={1}
+                        <MapView key={2}
                             showList={this.state.showList}
                             togglePopup={this.togglePopup.bind(this)}
                             handleClick={this.handleClick.bind(this)}

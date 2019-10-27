@@ -7,10 +7,8 @@ class ListView extends React.Component {
         this.state = {
             showList: []
         }
-        console.log(this.props);
     }
     componentDidMount() {
-        console.log(this.props.showList);
         this.setState(
             {
                 showList: this.props.showList
@@ -22,9 +20,9 @@ class ListView extends React.Component {
         return (
             <main>
                 <div className="ui stackable four column grid">
-                    {this.props.showList.map((data) => {
+                    {this.props.showList.map((data, i) => {
                         return (
-                            <div className="column">
+                            <div className="column" key={i}>
                                 <div className="card" id="popup1">
                                     <div className="card__side card__side--front">
                                         <div className="card__picture card__picture--3">
