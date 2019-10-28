@@ -5,31 +5,19 @@ import Dashboard from './Dashboard';
 class SidePanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            show: false
-        }
-    }
-
-    onSidePanelToggle() {
-        this.setState({
-            show: !this.state.show
-        })
-        //setTimeout(function () {
-        //    $(formMessages).removeClass('error');
-        //    //....and whatever else you need to do
-        //}, 3000);
     }
 
     render() {
+        console.log(this.props.showSidePanel);
         var showData = this.props.showData;
         return (
             <div className="menu">
-                <div className={(this.state.show || this.props.showData ? "side-panel__show " : " ") + "side-panel always-visible"}>
+                <div className={(this.props.showSidePanel ? "side-panel__show " : " ") + "side-panel always-visible"}>
                     <div className="ui relaxed divided list">
                         {this.props.Data.map((data, i) => {
                             return (<React.Fragment key={i}>
                                 {this.props.showingList ?
-                                    <div className={(this.state.show ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}
+                                    <div className={(this.props.showSidePanel ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}
                                         onMouseMove={() => this.props.onHover(data)}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
                                         <div className="content">
@@ -50,7 +38,7 @@ class SidePanel extends React.Component {
                             )
                         })}
                         {!this.props.showingList ?
-                            <div className="list-show item">
+                            <div className={(this.props.showSidePanel ? "list-show " : " ") + "item"}>
                                 <div className="ui blue buttons">
                                     <button className="ui labeled icon button" onClick={this.props.onBack.bind(this)}>
                                         <i className="left chevron icon"></i>
@@ -80,8 +68,8 @@ class SidePanel extends React.Component {
                         }
                     </div>
                 </div>
-                <div className={(this.state.show ? "menu-button__clicked " : " ") + "menu-button"}>
-                    <button onClick={this.onSidePanelToggle.bind(this)} className="slide-button">  <i className="right chevron icon"></i> </button>
+                <div className={(this.props.showSidePanel ? "menu-button__clicked " : " ") + "menu-button"}>
+                    <button onClick={this.props.onSidePanelToggle} className="slide-button">  <i className="right chevron icon"></i> </button>
                 </div>
             </div>
         )

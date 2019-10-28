@@ -50,13 +50,22 @@ class MapView extends React.Component {
             showingList: true,
             activeMarker: {},
             selectedPlace: {},
-            showData: null
+            showData: null,
+            showSidePanel: false
         }
+
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.mapRef = React.createRef();
         this.onListItemClick = this.onListItemClick.bind(this);
         this.onBack = this.onBack.bind(this);
         this.onListItemHover = this.onListItemHover.bind(this);
+        this.onSidePanelToggle = this.onSidePanelToggle.bind(this);
+    }
+
+    onSidePanelToggle() {
+        this.setState({
+            showSidePanel: !this.state.showSidePanel
+        })
     }
 
     componentDidMount() {
@@ -105,7 +114,8 @@ class MapView extends React.Component {
             activeMarker: marker,
             showingInfoWindow: true,
             showingList: false,
-            showData: props.data
+            showData: props.data,
+            showSidePanel: true
         });
         console.log(props);
         var map = this.mapRef;
@@ -142,7 +152,8 @@ class MapView extends React.Component {
                     >
                         <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} ref={component => this.clickedListItem = component} />
                         <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
-                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover} />
+                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover}
+                            onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel} />
                         <InfoWindow
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
