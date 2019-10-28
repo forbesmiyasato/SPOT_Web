@@ -20,6 +20,11 @@ class MarkersList extends React.Component {
     }
 
     render() {
+        var label = {
+            text: "P",
+            color: "white"
+        };
+
         return (
             <span>
                 {this.props.showList.map((place, i) => {
@@ -32,9 +37,10 @@ class MarkersList extends React.Component {
                             position={{ lat: place.Lat, lng: place.Lng }}
                             Name={place.Name}
                             context={place.Name}
-                            animation={this.props.google.maps.Animation.DROP}
+                            label={label}
+                            //animation={this.props.google.maps.Animation.DROP}
                         />
-                    );
+                );
                 })}
             </span>
         )
@@ -78,6 +84,10 @@ class MapView extends React.Component {
 
     onListItemHover(data) {
         console.log(data);
+        console.log(this.clickedListItem)
+        //var label = this.clickedListItem.refs[data.Name].marker.getLabel();
+        //label.color = "black";
+        //this.clickedListItem.refs[data.Name].marker.setLabel(label);
     }
 
     onListItemClick(data) {
@@ -95,8 +105,11 @@ class MapView extends React.Component {
             showData: data,
             activeMarker: this.clickedListItem.refs[data.Name].marker,
             showingInfoWindow: true
-            
+
         })
+        var label = this.clickedListItem.refs[data.Name].marker.getLabel();
+        label.color = "black";
+        this.clickedListItem.refs[data.Name].marker.setLabel(label);
         console.log(this.state.selectedPlace);
         console.log(data);
     }
@@ -117,7 +130,10 @@ class MapView extends React.Component {
             showData: props.data,
             showSidePanel: true
         });
-        console.log(props);
+        console.log(marker);
+        var label = marker.getLabel();
+        label.color = "black";
+        marker.setLabel(label);
         var map = this.mapRef;
         const google = this.props.google;
         const maps = google.maps;
@@ -132,7 +148,7 @@ class MapView extends React.Component {
     }
 
     render() {
-        
+
         var selectedPlaceData = this.state.selectedPlace;
         const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
