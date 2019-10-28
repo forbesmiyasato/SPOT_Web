@@ -10,6 +10,7 @@ class MarkersList extends React.Component {
         this.markersRendered = false;
     }
 
+    onMarkerHover
     shouldComponentUpdate(nextProps, nextState) {
         if (JSON.stringify(this.props.showList) === JSON.stringify(nextProps.showList) && this.markersRendered) {
             return false;
@@ -25,9 +26,13 @@ class MarkersList extends React.Component {
                     return (
                         <Marker
                             {...this.props}
+                            ref={place.Name}
                             key={i}
                             data={place}
                             position={{ lat: place.Lat, lng: place.Lng }}
+                            Name={place.Name}
+                            context={place.Name}
+                            animation={this.props.google.maps.Animation.DROP}
                         />
                     );
                 })}
@@ -51,6 +56,7 @@ class MapView extends React.Component {
         this.mapRef = React.createRef();
         this.onListItemClick = this.onListItemClick.bind(this);
         this.onBack = this.onBack.bind(this);
+        this.onListItemHover = this.onListItemHover.bind(this);
     }
 
     componentDidMount() {
@@ -59,6 +65,10 @@ class MapView extends React.Component {
                 showList: this.props.showList
             }
         );
+    }
+
+    onListItemHover(data) {
+        console.log(data);
     }
 
     onListItemClick(data) {
@@ -71,9 +81,15 @@ class MapView extends React.Component {
             map.setZoom(13);
         }
         this.setState({
+            selectedPlace: data,
             showingList: false,
-            showData: data
+            showData: data,
+            activeMarker: this.clickedListItem.refs[data.Name].marker,
+            showingInfoWindow: true
+            
         })
+        console.log(this.state.selectedPlace);
+        console.log(data);
     }
 
     onBack() {
@@ -85,18 +101,18 @@ class MapView extends React.Component {
 
     onMarkerClick(props, marker, e) {
         this.setState({
-            selectedPlace: props,
+            selectedPlace: props.data,
             activeMarker: marker,
             showingInfoWindow: true,
             showingList: false,
             showData: props.data
         });
-
+        console.log(props);
         var map = this.mapRef;
         const google = this.props.google;
         const maps = google.maps;
         if (map) {
-            let center = new maps.LatLng(this.state.selectedPlace.position.lat, this.state.selectedPlace.position.lng);
+            let center = new maps.LatLng(this.state.selectedPlace.Lat, this.state.selectedPlace.Lng);
             map.panTo(center);
             var zoom = map.getZoom();
             if (zoom < 16) {
@@ -106,7 +122,8 @@ class MapView extends React.Component {
     }
 
     render() {
-        var selectedPlaceData = this.state.selectedPlace.data;
+        
+        var selectedPlaceData = this.state.selectedPlace;
         const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
         return (
@@ -123,9 +140,9 @@ class MapView extends React.Component {
                         }}
                         onReady={(mapProps, map) => (this.mapRef = map)}
                     >
-                        <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} />
+                        <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} ref={component => this.clickedListItem = component} />
                         <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
-                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} />
+                            showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover} />
                         <InfoWindow
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>

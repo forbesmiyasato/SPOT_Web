@@ -29,7 +29,8 @@ class SidePanel extends React.Component {
                         {this.props.Data.map((data, i) => {
                             return (<React.Fragment key={i}>
                                 {this.props.showingList ?
-                                    <div className={(this.state.show ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}>
+                                    <div className={(this.state.show ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}
+                                        onMouseMove={() => this.props.onHover(data)}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
                                         <div className="content">
                                             <div className="header">
@@ -50,7 +51,7 @@ class SidePanel extends React.Component {
                         })}
                         {!this.props.showingList ?
                             <div className="list-show item">
-                                <div class="ui blue buttons">
+                                <div className="ui blue buttons">
                                     <button className="ui labeled icon button" onClick={this.props.onBack.bind(this)}>
                                         <i className="left chevron icon"></i>
                                         Back
