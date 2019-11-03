@@ -46,9 +46,9 @@ class MarkersList extends React.Component {
                             context={place.Name}
                             label={label}
                             icon={defaultIcon}
-                            //animation={this.props.google.maps.Animation.DROP}
+                        //animation={this.props.google.maps.Animation.DROP}
                         />
-                );
+                    );
                 })}
             </span>
         )
@@ -69,6 +69,8 @@ class MapView extends React.Component {
         }
 
         this.onMarkerClick = this.onMarkerClick.bind(this);
+        this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
+        this.onMarkerMouseOut = this.onMarkerMouseOut.bind(this);
         this.mapRef = React.createRef();
         this.onListItemClick = this.onListItemClick.bind(this);
         this.onBack = this.onBack.bind(this);
@@ -96,7 +98,9 @@ class MapView extends React.Component {
         label.color = "black";
         this.clickedListItem.refs[data.Name].marker.setLabel(label);
         var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
-        icon.scaledSize = new this.props.google.maps.Size(35, 40)
+        icon.scaledSize = new this.props.google.maps.Size(24, 36)
+        icon.labelOrigin = new this.props.google.maps.Point(12, 16)
+        //icon.anchor = new this.props.google.maps.Point(0,32)
         console.log(icon);
         this.clickedListItem.refs[data.Name].marker.setIcon(icon);
     }
@@ -107,6 +111,7 @@ class MapView extends React.Component {
         this.clickedListItem.refs[data.Name].marker.setLabel(label);
         var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
         icon.scaledSize = new this.props.google.maps.Size(20, 32)
+        icon.labelOrigin = new this.props.google.maps.Point(10, 16)
         console.log(icon);
         this.clickedListItem.refs[data.Name].marker.setIcon(icon);
     }
@@ -128,14 +133,6 @@ class MapView extends React.Component {
             showingInfoWindow: true
 
         })
-        //var label = this.clickedListItem.refs[data.Name].marker.getLabel();
-        //label.color = "black";
-        //console.log(label);
-        //this.clickedListItem.refs[data.Name].marker.setLabel(label);
-        //var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
-        //console.log(icon);
-        //console.log(this.clickedListItem.refs[data.Name].marker);
-        //this.clickedListItem.refs[data.Name].marker.setIcon(icon);
     }
 
     onBack() {
@@ -145,6 +142,25 @@ class MapView extends React.Component {
         })
     }
 
+    onMarkerMouseOut(props, marker, e) {
+        var label = marker.getLabel();
+        label.color = "white";
+        marker.setLabel(label);
+        var icon = marker.getIcon();
+        icon.scaledSize = new this.props.google.maps.Size(20, 32)
+        icon.labelOrigin = new this.props.google.maps.Point(10, 16)
+        //icon.anchor = new this.props.google.maps.Point(0,32)
+        marker.setIcon(icon);
+    }
+    onMarkerMouseOver(props, marker, e) {
+        var label = marker.getLabel();
+        label.color = "black";
+        marker.setLabel(label);
+        var icon = marker.getIcon();
+        icon.scaledSize = new this.props.google.maps.Size(24, 36)
+        icon.labelOrigin = new this.props.google.maps.Point(12, 16)
+        marker.setIcon(icon);
+    }
     onMarkerClick(props, marker, e) {
         this.setState({
             selectedPlace: props.data,
@@ -154,10 +170,6 @@ class MapView extends React.Component {
             showData: props.data,
             showSidePanel: true
         });
-        console.log(marker);
-        var label = marker.getLabel();
-        label.color = "black";
-        marker.setLabel(label);
         var map = this.mapRef;
         const google = this.props.google;
         const maps = google.maps;
@@ -190,10 +202,11 @@ class MapView extends React.Component {
                         }}
                         onReady={(mapProps, map) => (this.mapRef = map)}
                     >
-                        <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} ref={component => this.clickedListItem = component} />
+                        <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} ref={component => this.clickedListItem = component}
+                            onMouseover={this.onMarkerMouseOver} onMouseout={this.onMarkerMouseOut} />
                         <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
                             showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover}
-                            onLeave={this.onListItemLeave} onSidePanelToggle = { this.onSidePanelToggle } showSidePanel={this.state.showSidePanel} />
+                            onLeave={this.onListItemLeave} onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel} />
                         <InfoWindow
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
