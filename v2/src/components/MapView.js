@@ -181,10 +181,16 @@ class MapView extends React.Component {
                 map.setZoom(zoom + 2);
             }
         }
+
+        console.log(this.InfoWindow)
+        //if (this.InfoWindow.)
+        //TODO add a check if the window is closed before opening
+        this.InfoWindow.openWindow();
     }
 
     render() {
-
+        console.log(this.state.selectedPlace);
+        console.log(this.state.showingInfoWindow);
         var selectedPlaceData = this.state.selectedPlace;
         const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
@@ -208,6 +214,7 @@ class MapView extends React.Component {
                             showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover}
                             onLeave={this.onListItemLeave} onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel} />
                         <InfoWindow
+                            ref={component => this.InfoWindow = component}
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
                             <div>
