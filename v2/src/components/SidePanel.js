@@ -3,9 +3,6 @@ import AvailabilityChart from './AvailabilityChart';
 import Dashboard from './Dashboard';
 
 class SidePanel extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         console.log(this.props.showSidePanel);
@@ -18,7 +15,7 @@ class SidePanel extends React.Component {
                             return (<React.Fragment key={i}>
                                 {this.props.showingList ?
                                     <div className={(this.props.showSidePanel ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}
-                                        onMouseEnter={this.props.onHover(data)}>
+                                        onMouseEnter={this.props.onHover.bind(this, data)} onMouseLeave={this.props.onLeave.bind(this, data)}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
                                         <div className="content">
                                             <div className="header">

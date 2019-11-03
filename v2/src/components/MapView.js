@@ -10,7 +10,6 @@ class MarkersList extends React.Component {
         this.markersRendered = false;
     }
 
-    onMarkerHover
     shouldComponentUpdate(nextProps, nextState) {
         if (JSON.stringify(this.props.showList) === JSON.stringify(nextProps.showList) && this.markersRendered) {
             return false;
@@ -24,6 +23,14 @@ class MarkersList extends React.Component {
             text: "P",
             color: "white"
         };
+        var defaultIcon = {
+            url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png', // url
+            scaledSize: new this.props.google.maps.Size(20, 32), // scaled size
+        };
+        //var highlightedIcon = {
+        //    url: 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|FFFF24|40|_|%E2%80%A2', // url
+        //    scaledSize: new this.props.google.maps.Size(20, 30), // scaled size
+        //};
 
         return (
             <span>
@@ -38,6 +45,7 @@ class MarkersList extends React.Component {
                             Name={place.Name}
                             context={place.Name}
                             label={label}
+                            icon={defaultIcon}
                             //animation={this.props.google.maps.Animation.DROP}
                         />
                 );
@@ -65,6 +73,7 @@ class MapView extends React.Component {
         this.onListItemClick = this.onListItemClick.bind(this);
         this.onBack = this.onBack.bind(this);
         this.onListItemHover = this.onListItemHover.bind(this);
+        this.onListItemLeave = this.onListItemLeave.bind(this);
         this.onSidePanelToggle = this.onSidePanelToggle.bind(this);
     }
 
@@ -83,11 +92,23 @@ class MapView extends React.Component {
     }
 
     onListItemHover(data) {
-        console.log(data);
-        console.log(this.clickedListItem)
-        //var label = this.clickedListItem.refs[data.Name].marker.getLabel();
-        //label.color = "black";
-        //this.clickedListItem.refs[data.Name].marker.setLabel(label);
+        var label = this.clickedListItem.refs[data.Name].marker.getLabel();
+        label.color = "black";
+        this.clickedListItem.refs[data.Name].marker.setLabel(label);
+        var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
+        icon.scaledSize = new this.props.google.maps.Size(35, 40)
+        console.log(icon);
+        this.clickedListItem.refs[data.Name].marker.setIcon(icon);
+    }
+
+    onListItemLeave(data) {
+        var label = this.clickedListItem.refs[data.Name].marker.getLabel();
+        label.color = "white";
+        this.clickedListItem.refs[data.Name].marker.setLabel(label);
+        var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
+        icon.scaledSize = new this.props.google.maps.Size(20, 32)
+        console.log(icon);
+        this.clickedListItem.refs[data.Name].marker.setIcon(icon);
     }
 
     onListItemClick(data) {
@@ -107,11 +128,14 @@ class MapView extends React.Component {
             showingInfoWindow: true
 
         })
-        var label = this.clickedListItem.refs[data.Name].marker.getLabel();
-        label.color = "black";
-        this.clickedListItem.refs[data.Name].marker.setLabel(label);
-        console.log(this.state.selectedPlace);
-        console.log(data);
+        //var label = this.clickedListItem.refs[data.Name].marker.getLabel();
+        //label.color = "black";
+        //console.log(label);
+        //this.clickedListItem.refs[data.Name].marker.setLabel(label);
+        //var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
+        //console.log(icon);
+        //console.log(this.clickedListItem.refs[data.Name].marker);
+        //this.clickedListItem.refs[data.Name].marker.setIcon(icon);
     }
 
     onBack() {
@@ -169,7 +193,7 @@ class MapView extends React.Component {
                         <MarkersList showList={this.props.showList} onClick={this.onMarkerClick} ref={component => this.clickedListItem = component} />
                         <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
                             showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover}
-                            onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel} />
+                            onLeave={this.onListItemLeave} onSidePanelToggle = { this.onSidePanelToggle } showSidePanel={this.state.showSidePanel} />
                         <InfoWindow
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}>
