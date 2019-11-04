@@ -207,7 +207,8 @@ class MapView extends React.Component {
 
     onInfoWindowClose() {
         this.setState({
-            markerClicked: false
+            markerClicked: false,
+            highlightedItem: null
         })
     }
 
