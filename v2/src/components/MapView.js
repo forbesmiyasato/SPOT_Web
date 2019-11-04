@@ -243,18 +243,25 @@ class MapView extends React.Component {
                             marker={this.state.activeMarker}
                             visible={this.state.showingInfoWindow}
                             onClose={this.onInfoWindowClose}>
-                            
+
                             <div>
+
                                 {selectedPlaceData ?
-                                    (<div className="info-window">
-                                        <h2>{selectedPlaceData.Name}</h2>
-                                        <a href={selectedPlaceData.Image}>
-                                            <img alt={selectedPlaceData.Name} style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={selectedPlaceData.Image} />
-                                        </a>
-                                        <h3>Open Parkings: {selectedPlaceData.OpenParkings}</h3>
-                                        <h3>Distance: <br /> {selectedPlaceData.Distance} Miles</h3>
-                                        <h3>Duration: {selectedPlaceData.Duration} {selectedPlaceData.TimeUnit}</h3>
-                                    </div>)
+                                    this.state.markerClicked ?
+                                        (<div className="info-window">
+                                            <h2>{selectedPlaceData.Name}</h2>
+                                            <a href={selectedPlaceData.Image}>
+                                                <img alt={selectedPlaceData.Name} style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={selectedPlaceData.Image} />
+                                            </a>
+                                            <h3>Open Parkings: {selectedPlaceData.OpenParkings}</h3>
+                                            <h3>Distance: <br /> {selectedPlaceData.Distance} Miles</h3>
+                                            <h3>Duration: {selectedPlaceData.Duration} {selectedPlaceData.TimeUnit}</h3>
+                                        </div>)
+                                        :
+                                        <>
+                                            <h2>{selectedPlaceData.Name}</h2>
+                                            <a style={{ fontStyle: "italic"}}> Click to view more info </a>
+                                        </>
                                     : null
                                 }
                             </div>
