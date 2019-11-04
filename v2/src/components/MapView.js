@@ -67,7 +67,8 @@ class MapView extends React.Component {
             showData: null,
             showSidePanel: false,
             markerClicked: false,
-            highlightedItem: null
+            highlightedItem: null,
+            infoWindowClosed: false
         }
 
         this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -199,22 +200,23 @@ class MapView extends React.Component {
             }
         }
 
-        console.log(this.InfoWindow)
-        //if (this.InfoWindow.)
-        //TODO add a check if the window is closed before opening
-        this.InfoWindow.openWindow();
+        if (this.state.infoWindowClosed) {
+            this.InfoWindow.openWindow();
+            this.setState({
+                infoWindowClosed: false
+            })
+        }
     }
 
     onInfoWindowClose() {
         this.setState({
             markerClicked: false,
-            highlightedItem: null
+            highlightedItem: null,
+            infoWindowClosed: true
         })
     }
 
     render() {
-        console.log(this.ListItem);
-
         var selectedPlaceData = this.state.selectedPlace;
         const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
@@ -237,7 +239,7 @@ class MapView extends React.Component {
                         <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
                             showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover}
                             onLeave={this.onListItemLeave} onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel}
-                            ref={(component) => this.ListItem = component} highlightedItem={this.state.highlightedItem} />
+                           highlightedItem={this.state.highlightedItem} />
                         <InfoWindow
                             ref={component => this.InfoWindow = component}
                             marker={this.state.activeMarker}

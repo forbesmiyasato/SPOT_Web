@@ -5,7 +5,6 @@ import Dashboard from './Dashboard';
 class SidePanel extends React.Component {
 
     render() {
-        console.log(this.props.showSidePanel);
         var showData = this.props.showData;
         return (
             <div className="menu">
@@ -16,7 +15,6 @@ class SidePanel extends React.Component {
                                 {this.props.showingList ?
                                     <div className={(this.props.showSidePanel ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}
                                         onMouseEnter={this.props.onHover.bind(this, data)} onMouseLeave={this.props.onLeave.bind(this, data)}
-                                        ref={component => this.ListItem = component}
                                         style={(this.props.highlightedItem === data._id ? { backgroundColor: "#eaeaea" } : null )}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
                                 <div className="content">
