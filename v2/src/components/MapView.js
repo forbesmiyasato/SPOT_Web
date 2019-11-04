@@ -66,7 +66,8 @@ class MapView extends React.Component {
             selectedPlace: {},
             showData: null,
             showSidePanel: false,
-            markerClicked: false
+            markerClicked: false,
+            highlightedItem: null
         }
 
         this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -155,6 +156,7 @@ class MapView extends React.Component {
         if (!this.state.markerClicked) {
             this.setState({
                 showingInfoWindow: false,
+                highlightedItem: null
             });
         }
     }
@@ -170,6 +172,7 @@ class MapView extends React.Component {
             selectedPlace: props.data,
             activeMarker: marker,
             showingInfoWindow: true,
+            highlightedItem: props.data._id
         });
         this.InfoWindow.openWindow();
     }
@@ -209,8 +212,8 @@ class MapView extends React.Component {
     }
 
     render() {
-        console.log(this.state.selectedPlace);
-        console.log(this.state.showingInfoWindow);
+        console.log(this.ListItem);
+
         var selectedPlaceData = this.state.selectedPlace;
         const containerStyle = { position: 'absolute', width: '100%', height: '100%' }
 
@@ -232,7 +235,8 @@ class MapView extends React.Component {
                             onMouseover={this.onMarkerMouseOver} onMouseout={this.onMarkerMouseOut} />
                         <SidePanel Data={this.props.showList} onListItemClick={this.onListItemClick} showingList={this.state.showingList}
                             showData={this.state.showData} handleClick={this.props.handleClick} onBack={this.onBack} onHover={this.onListItemHover}
-                            onLeave={this.onListItemLeave} onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel} />
+                            onLeave={this.onListItemLeave} onSidePanelToggle={this.onSidePanelToggle} showSidePanel={this.state.showSidePanel}
+                            ref={(component) => this.ListItem = component} highlightedItem={this.state.highlightedItem} />
                         <InfoWindow
                             ref={component => this.InfoWindow = component}
                             marker={this.state.activeMarker}
