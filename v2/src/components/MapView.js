@@ -65,7 +65,8 @@ class MapView extends React.Component {
             activeMarker: {},
             selectedPlace: {},
             showData: null,
-            showSidePanel: false
+            showSidePanel: false,
+            markerClicked: false
         }
 
         this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -77,6 +78,7 @@ class MapView extends React.Component {
         this.onListItemHover = this.onListItemHover.bind(this);
         this.onListItemLeave = this.onListItemLeave.bind(this);
         this.onSidePanelToggle = this.onSidePanelToggle.bind(this);
+        this.onInfoWindowClose = this.onInfoWindowClose.bind(this);
     }
 
     onSidePanelToggle() {
@@ -131,7 +133,6 @@ class MapView extends React.Component {
             showData: data,
             activeMarker: this.clickedListItem.refs[data.Name].marker,
             showingInfoWindow: true
-
         })
     }
 
@@ -151,6 +152,11 @@ class MapView extends React.Component {
         icon.labelOrigin = new this.props.google.maps.Point(10, 16)
         //icon.anchor = new this.props.google.maps.Point(0,32)
         marker.setIcon(icon);
+        if (!this.state.markerClicked) {
+            this.setState({
+                showingInfoWindow: false,
+            });
+        }
     }
     onMarkerMouseOver(props, marker, e) {
         var label = marker.getLabel();
@@ -160,7 +166,14 @@ class MapView extends React.Component {
         icon.scaledSize = new this.props.google.maps.Size(24, 36)
         icon.labelOrigin = new this.props.google.maps.Point(12, 16)
         marker.setIcon(icon);
+        this.setState({
+            selectedPlace: props.data,
+            activeMarker: marker,
+            showingInfoWindow: true,
+        });
+        this.InfoWindow.openWindow();
     }
+
     onMarkerClick(props, marker, e) {
         this.setState({
             selectedPlace: props.data,
@@ -168,7 +181,8 @@ class MapView extends React.Component {
             showingInfoWindow: true,
             showingList: false,
             showData: props.data,
-            showSidePanel: true
+            showSidePanel: true,
+            markerClicked: true
         });
         var map = this.mapRef;
         const google = this.props.google;
@@ -186,6 +200,12 @@ class MapView extends React.Component {
         //if (this.InfoWindow.)
         //TODO add a check if the window is closed before opening
         this.InfoWindow.openWindow();
+    }
+
+    onInfoWindowClose() {
+        this.setState({
+            markerClicked: false
+        })
     }
 
     render() {
@@ -216,7 +236,9 @@ class MapView extends React.Component {
                         <InfoWindow
                             ref={component => this.InfoWindow = component}
                             marker={this.state.activeMarker}
-                            visible={this.state.showingInfoWindow}>
+                            visible={this.state.showingInfoWindow}
+                            onClose={this.onInfoWindowClose}>
+                            
                             <div>
                                 {selectedPlaceData ?
                                     (<div className="info-window">
