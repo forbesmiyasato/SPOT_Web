@@ -33,9 +33,10 @@ class LandingPage extends React.Component {
         var options = {
             componentRestrictions: { country: "us" }
         }
+
         this.autocomplete = new google.maps.places.Autocomplete(this.autoCompleteInput.current, options);
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-
+        this.service = new google.maps.places.AutocompleteService();
         google.maps.event.addDomListener(document.getElementById('input'), 'keydown', function (e) {
             if (e.keyCode === 13) {
                 const googleDOMNodes = document.getElementsByClassName('pac-container');
@@ -93,7 +94,13 @@ class LandingPage extends React.Component {
     }
 
     test(event) {
-        console.log(event.target.value);
+        //var request = {
+        //    placeId: this.autocomplete.,
+        //    fields: ['geometry']
+        //};
+
+        //service = new google.maps.places.PlacesService(map);
+        //service.getDetails(request, callback);
     }
 
     submitLocation() {
@@ -110,8 +117,29 @@ class LandingPage extends React.Component {
             })
         }
         else {
-            window.alert("Please selected address suggested in dropdown")
-            window.location.reload();
+            //window.alert("Please selected address suggested in dropdown")
+            //window.location.reload();
+            var placeID = this.autocomplete.gm_accessors_.place.dd.h[0].m[3];
+            console.log(placeID);
+            var request = {
+                placeId: placeID,
+                fields: ['geometry']
+            };
+
+            var service = new google.maps.places.PlacesService(document.createElement('div'));
+            service.getDetails({
+                placeId: placeID,
+                fields: ['geometry']
+            }, (place) => {
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng()
+                var Origin = { latitude, longitude };
+                this.setState({
+                    next: true,
+                    origin: Origin
+                })
+            });
+
         }
     }
 
@@ -126,7 +154,7 @@ class LandingPage extends React.Component {
             <header className="home-header">
                 {this.state.errorMessage && !this.state.origin ?
                     <div class="ui red message">
-                            {this.state.errorMessage}
+                        {this.state.errorMessage}
                     </div>
                     : null
                 }
@@ -173,11 +201,3 @@ class LandingPage extends React.Component {
 }
 
 export default LandingPage;
-
-                        //<datalist id="parkings">
-                        //    <select name="parking">
-                        //        <option value="123432452"> Pacific University </option>
-                        //        <option value="Stoller-East"> Seattle University </option>
-                        //        <option> huhu </option>
-                        //    </select>
-                        //</datalist>

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const LocationNotFound = (props) => {
     return (
         <div className="utility-center">

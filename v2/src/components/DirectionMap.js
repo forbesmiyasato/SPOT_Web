@@ -48,13 +48,6 @@ class Map extends Component {
         );
     }
 
-    //componentWillUpdate(nextProps, nextState) {
-    //    localStorage.setItem('DestinationLat', this.props.Destination.lat);
-    //    localStorage.setItem('DesinationLng', this.props.Destination.lng);
-    //    localStorage.setItem('OriginLat', this.props.Origin.lat);
-    //    localStorage.setItem('OriginLng', this.props.Origin.lng);
-    //}
-
     render() {
         const GoogleMapExample = withGoogleMap(props => (
             <GoogleMap

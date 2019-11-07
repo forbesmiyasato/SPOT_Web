@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react'
 import SidePanel from './SidePanel';
-//TODO highlight marker when selected from list, and add hover effects for markers, get rid of overflowing side panel!
+//TODO keep a hover info window as well as an clicked info window, get rid of overflowing side panel!
 
 class MarkersList extends React.Component {
 
@@ -27,10 +27,6 @@ class MarkersList extends React.Component {
             url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png', // url
             scaledSize: new this.props.google.maps.Size(20, 32), // scaled size
         };
-        //var highlightedIcon = {
-        //    url: 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|FFFF24|40|_|%E2%80%A2', // url
-        //    scaledSize: new this.props.google.maps.Size(20, 30), // scaled size
-        //};
 
         return (
             <span>
@@ -46,7 +42,6 @@ class MarkersList extends React.Component {
                             context={place.Name}
                             label={label}
                             icon={defaultIcon}
-                        //animation={this.props.google.maps.Animation.DROP}
                         />
                     );
                 })}
@@ -173,7 +168,8 @@ class MapView extends React.Component {
             selectedPlace: props.data,
             activeMarker: marker,
             showingInfoWindow: true,
-            highlightedItem: props.data._id
+            highlightedItem: props.data._id,
+            markerClicked: false
         });
         this.InfoWindow.openWindow();
     }
@@ -247,7 +243,6 @@ class MapView extends React.Component {
                             onClose={this.onInfoWindowClose}>
 
                             <div>
-
                                 {selectedPlaceData ?
                                     this.state.markerClicked ?
                                         (<div className="info-window">
