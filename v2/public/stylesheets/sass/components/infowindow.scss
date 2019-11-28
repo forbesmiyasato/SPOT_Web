@@ -47,6 +47,11 @@
 
 .content {
     font-size: 0.6vw;
+
+    &__list {
+        position: relative !important;
+        width: 100% !important;
+    }
 }
 .menu-button {
     position:absolute;

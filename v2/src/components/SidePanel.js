@@ -43,7 +43,7 @@ class SidePanel extends React.Component {
                                     </button>
                             </div>
                             <img alt={showData.Name} className="ui fluid image" src={showData.Image} />
-                            <div className="content">
+                            <div className="content content__list">
                                 <div className="header">
                                     <h3>{showData.Name}</h3>
                                     <div className="description">

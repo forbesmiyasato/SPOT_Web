@@ -202,11 +202,6 @@ main {
   margin-top: 10px;
   margin-bottom: 10px; }
 
-.button.ui.button.list-direction {
-  float: right;
-  /*margin-left: 4rem;*/
-  margin-top: 3rem; }
-
 .ui.list .list > .item .header, .ui.list > .item .header {
   display: inline-block; }
 
@@ -314,6 +309,17 @@ main {
 .btn__directions {
   margin-top: 3rem;
   margin-bottom: 4rem; }
+
+.btn-exit {
+  background: none;
+  border: 0px;
+  left: 2px;
+  position: relative; }
+
+.button.ui.button.list-direction {
+  position: absolute;
+  right: 1rem;
+  top: 2rem; }
 
 .card {
   perspective: 150rem;
@@ -669,6 +675,9 @@ main {
 
 .content {
   font-size: 0.6vw; }
+  .content__list {
+    position: relative !important;
+    width: 100% !important; }
 
 .menu-button {
   position: absolute;
