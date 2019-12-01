@@ -3,6 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react'
 import SidePanel from './SidePanel';
 //TODO keep a hover info window as well as an clicked info window, get rid of overflowing side panel!
 
+
 class MarkersList extends React.Component {
 
     constructor(props) {
@@ -27,6 +28,10 @@ class MarkersList extends React.Component {
             url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png', // url
             scaledSize: new this.props.google.maps.Size(20, 32), // scaled size
         };
+        var hoverIcon = {
+            url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png', // url
+            scaledSize: new this.props.google.maps.Size(24, 36), // scaled size
+        };
 
         return (
             <span>
@@ -40,8 +45,10 @@ class MarkersList extends React.Component {
                             position={{ lat: place.Lat, lng: place.Lng }}
                             Name={place.Name}
                             context={place.Name}
-                            label={label}
+                            // label={label}
                             icon={defaultIcon}
+                            hoverIcon={hoverIcon}
+                            defaultIcon={defaultIcon}
                         />
                     );
                 })}
@@ -61,7 +68,7 @@ class MapView extends React.Component {
             selectedPlace: {},
             showData: null,
             showSidePanel: false,
-            markerClicked: false,
+            showFullData: false,
             highlightedItem: null,
             infoWindowClosed: false
         }
@@ -93,26 +100,13 @@ class MapView extends React.Component {
     }
 
     onListItemHover(data) {
-        var label = this.clickedListItem.refs[data.Name].marker.getLabel();
-        label.color = "black";
-        this.clickedListItem.refs[data.Name].marker.setLabel(label);
-        var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
-        icon.scaledSize = new this.props.google.maps.Size(24, 36)
-        icon.labelOrigin = new this.props.google.maps.Point(12, 16)
-        //icon.anchor = new this.props.google.maps.Point(0,32)
-        console.log(icon);
-        this.clickedListItem.refs[data.Name].marker.setIcon(icon);
+        var marker = this.clickedListItem.refs[data.Name].marker;
+        marker.setIcon(marker.hoverIcon);
     }
 
     onListItemLeave(data) {
-        var label = this.clickedListItem.refs[data.Name].marker.getLabel();
-        label.color = "white";
-        this.clickedListItem.refs[data.Name].marker.setLabel(label);
-        var icon = this.clickedListItem.refs[data.Name].marker.getIcon();
-        icon.scaledSize = new this.props.google.maps.Size(20, 32)
-        icon.labelOrigin = new this.props.google.maps.Point(10, 16)
-        console.log(icon);
-        this.clickedListItem.refs[data.Name].marker.setIcon(icon);
+       var marker = this.clickedListItem.refs[data.Name].marker;
+        marker.setIcon(marker.defaultIcon);
     }
 
     onListItemClick(data) {
@@ -129,8 +123,12 @@ class MapView extends React.Component {
             showingList: false,
             showData: data,
             activeMarker: this.clickedListItem.refs[data.Name].marker,
-            showingInfoWindow: true
+            showingInfoWindow: true,
+            showFullData: true
         })
+        if (this.state.infoWindowClosed) {
+            this.InfoWindow.openWindow();
+        }
     }
 
     onBack() {
@@ -141,15 +139,9 @@ class MapView extends React.Component {
     }
 
     onMarkerMouseOut(props, marker, e) {
-        var label = marker.getLabel();
-        label.color = "white";
-        marker.setLabel(label);
-        var icon = marker.getIcon();
-        icon.scaledSize = new this.props.google.maps.Size(20, 32)
-        icon.labelOrigin = new this.props.google.maps.Point(10, 16)
-        //icon.anchor = new this.props.google.maps.Point(0,32)
-        marker.setIcon(icon);
-        if (!this.state.markerClicked) {
+        marker.setIcon(marker.defaultIcon);
+
+        if (!this.state.showFullData) {
             this.setState({
                 showingInfoWindow: false,
                 highlightedItem: null
@@ -157,21 +149,19 @@ class MapView extends React.Component {
         }
     }
     onMarkerMouseOver(props, marker, e) {
-        var label = marker.getLabel();
-        label.color = "black";
-        marker.setLabel(label);
-        var icon = marker.getIcon();
-        icon.scaledSize = new this.props.google.maps.Size(24, 36)
-        icon.labelOrigin = new this.props.google.maps.Point(12, 16)
-        marker.setIcon(icon);
+        console.log(marker);
+        marker.setIcon(marker.hoverIcon);
+        console.log(marker);
         this.setState({
             selectedPlace: props.data,
             activeMarker: marker,
             showingInfoWindow: true,
             highlightedItem: props.data._id,
-            markerClicked: false
+            showFullData: false
         });
+        if (this.state.infoWindowClosed) {
         this.InfoWindow.openWindow();
+        }
     }
 
     onMarkerClick(props, marker, e) {
@@ -182,7 +172,7 @@ class MapView extends React.Component {
             showingList: false,
             showData: props.data,
             showSidePanel: true,
-            markerClicked: true
+            showFullData: true
         });
         var map = this.mapRef;
         const google = this.props.google;
@@ -206,7 +196,7 @@ class MapView extends React.Component {
 
     onInfoWindowClose() {
         this.setState({
-            markerClicked: false,
+            showFullData: false,
             highlightedItem: null,
             infoWindowClosed: true
         })
@@ -244,7 +234,7 @@ class MapView extends React.Component {
 
                             <div>
                                 {selectedPlaceData ?
-                                    this.state.markerClicked ?
+                                    this.state.showFullData ?
                                         (<div className="info-window">
                                             <h2>{selectedPlaceData.Name}</h2>
                                             <a href={selectedPlaceData.Image}>

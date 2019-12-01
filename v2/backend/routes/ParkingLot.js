@@ -1,6 +1,5 @@
 const router = require('express').Router();
 let ParkingLot = require('../Models/ParkingLot');
-let SnapShot = require('../Models/SnapShot');
 
 //Get JSON data for all parking lots
 router.route('/ParkingLot/All').get((req, res) => {

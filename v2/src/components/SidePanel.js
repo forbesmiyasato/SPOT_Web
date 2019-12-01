@@ -14,7 +14,7 @@ class SidePanel extends React.Component {
                             return (<React.Fragment key={i}>
                                 {this.props.showingList ?
                                     <div className={(this.props.showSidePanel ? "list-show " : " ") + "item"} onClick={this.props.onListItemClick.bind(this, data)}
-                                        onMouseEnter={this.props.onHover.bind(this, data)} onMouseLeave={this.props.onLeave.bind(this, data)}
+                                        onMouseOver={this.props.onHover.bind(this, data)} onMouseOut={this.props.onLeave.bind(this, data)}
                                         style={(this.props.highlightedItem === data._id ? { backgroundColor: "#eaeaea" } : null )}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
                                 <div className="content">

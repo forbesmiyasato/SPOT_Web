@@ -37,7 +37,7 @@ class ShowPage extends React.Component {
     }
 
     componentDidMount() {
-
+        //If user submitted their location
         if (localStorage.getItem('OriginLat')) {
             var Origin = { latitude: JSON.parse(localStorage.getItem('OriginLat')), longitude: JSON.parse(localStorage.getItem('OriginLng')) };
             this.setState({ origin: Origin })
