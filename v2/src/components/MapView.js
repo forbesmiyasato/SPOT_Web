@@ -136,6 +136,7 @@ class MapView extends React.Component {
             showData: null,
             showingList: true
         })
+        this.onListItemLeave(this.state.selectedPlace);
     }
 
     onMarkerMouseOut(props, marker, e) {
@@ -149,9 +150,7 @@ class MapView extends React.Component {
         }
     }
     onMarkerMouseOver(props, marker, e) {
-        console.log(marker);
         marker.setIcon(marker.hoverIcon);
-        console.log(marker);
         this.setState({
             selectedPlace: props.data,
             activeMarker: marker,
@@ -238,7 +237,7 @@ class MapView extends React.Component {
                                         (<div className="info-window">
                                             <h2>{selectedPlaceData.Name}</h2>
                                             <a href={selectedPlaceData.Image}>
-                                                <img alt={selectedPlaceData.Name} style={{ height: '10rem', width: '10rem' }} ALIGN="right" src={selectedPlaceData.Image} />
+                                                <img alt={selectedPlaceData.Name} style={{ height: '10rem', width: '10rem', float: 'right'}}  src={selectedPlaceData.Image} />
                                             </a>
                                             <h3>Open Parkings: {selectedPlaceData.OpenParkings}</h3>
                                             <h3>Distance: <br /> {selectedPlaceData.Distance} Miles</h3>
