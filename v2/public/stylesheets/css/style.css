@@ -673,7 +673,7 @@ main {
 .item {
   opacity: 0; }
   .item.basic:hover {
-    background-color: #eaeaea; }
+    background-color: rgba(157, 227, 200, 0.2); }
 
 .content {
   font-size: 0.6vw; }

@@ -15,7 +15,7 @@ class SidePanel extends React.Component {
                                 {this.props.showingList ?
                                     <div className={(this.props.showSidePanel ? "list-show " : " ") + "item basic"} onClick={this.props.onListItemClick.bind(this, data)}
                                         onMouseOver={this.props.onHover.bind(this, data)} onMouseOut={this.props.onLeave.bind(this, data)}
-                                        style={(this.props.highlightedItem === data._id ? { backgroundColor: "#eaeaea" } : null )}>
+                                        style={(this.props.highlightedItem === data._id ? { backgroundColor: "rgba(157, 227, 200, 0.2)" } : null )}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
                                 <div className="content">
                                     <div className="header">
