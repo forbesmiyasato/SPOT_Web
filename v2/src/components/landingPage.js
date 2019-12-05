@@ -30,6 +30,13 @@ class LandingPage extends React.Component {
     }
 
     componentDidMount() {
+        if (sessionStorage.getItem("error") !== null)
+        {
+            this.setState({
+                errorMessage: sessionStorage.getItem("error")
+            })
+            sessionStorage.clear();
+        }
         var options = {
             componentRestrictions: { country: "us" }
         }
@@ -119,6 +126,14 @@ class LandingPage extends React.Component {
         else {
             //window.alert("Please selected address suggested in dropdown")
             //window.location.reload();
+            if (this.autocomplete.gm_accessors_.place.dd.h[0] == null)
+            {
+                console.log(this.autocomplete.getPlace());
+                sessionStorage.setItem("error", 'Invalid Location "'  + this.autocomplete.getPlace().name + '"');
+                window.location.reload(false);
+                
+            }
+            else {
             var placeID = this.autocomplete.gm_accessors_.place.dd.h[0].m[3];
             console.log(placeID);
             var request = {
@@ -139,7 +154,7 @@ class LandingPage extends React.Component {
                     origin: Origin
                 })
             });
-
+        }
         }
     }
 
@@ -153,7 +168,7 @@ class LandingPage extends React.Component {
         return (
             <header className="home-header">
                 {this.state.errorMessage && !this.state.origin ?
-                    <div class="ui red message">
+                    <div className="ui red message" style={{textAlign: "center"}}>
                         {this.state.errorMessage}
                     </div>
                     : null
