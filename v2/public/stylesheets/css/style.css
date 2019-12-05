@@ -672,6 +672,8 @@ main {
 
 .item {
   opacity: 0; }
+  .item.basic:hover {
+    background-color: #eaeaea; }
 
 .content {
   font-size: 0.6vw; }
