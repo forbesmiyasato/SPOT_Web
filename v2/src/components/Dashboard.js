@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
+import {isIOS} from 'react-device-detect'
+var baseURL = isIOS ? process.env.REACT_APP_IOS_BASE_URL : process.env.REACT_APP_OTHER_BASE_URL;
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -86,7 +88,7 @@ class Dashboard extends React.Component {
         var count23 = 0;
         var count24 = 0;
         var hour;
-        axios.get(`http://localhost:5000/ParkingLot/${this.props.ID}/SnapShots/All`)
+        axios.get(`${baseURL}/ParkingLot/${this.props.ID}/SnapShots/All`)
             .then(response => {
                 response.data.map((data) => {
                     //convert data.timestamp from utc to local time (-7) then get the hour

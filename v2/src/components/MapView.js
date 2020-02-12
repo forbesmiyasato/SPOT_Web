@@ -265,5 +265,5 @@ class MapView extends React.Component {
 }
 
 export default GoogleApiWrapper((props) => ({
-    apiKey: "AIzaSyB-7ORj7iEWauVJmKQG6nUvEaq0unSBA9Y"
+    apiKey: `${process.env.REACT_APP_API}`
 }))(MapView)

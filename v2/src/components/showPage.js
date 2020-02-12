@@ -4,7 +4,11 @@ import Axios from 'axios';
 import ListView from './ListView';
 import Switch from 'react-switch';
 import MapView from './MapView';
+import {isIOS} from 'react-device-detect'
 
+var baseURL = isIOS ? process.env.REACT_APP_IOS_BASE_URL : process.env.REACT_APP_OTHER_BASE_URL;
+
+console.log(isIOS);
 class ShowPage extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +45,7 @@ class ShowPage extends React.Component {
         if (localStorage.getItem('OriginLat')) {
             var Origin = { latitude: JSON.parse(localStorage.getItem('OriginLat')), longitude: JSON.parse(localStorage.getItem('OriginLng')) };
             this.setState({ origin: Origin })
-            Axios.get('http://localhost:5000/ParkingLot/All')
+            Axios.get(`${baseURL}/ParkingLot/All`)
                 .then(response => {
                     response.data.map((data) => {
                         var distance;
@@ -50,12 +54,12 @@ class ShowPage extends React.Component {
                         var destinations = `${data.Lat}/${data.Lng}`;
                         var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
 
-                        Axios.get(`http://localhost:5000/distancematrix/${origins}/${destinations}`)
+                        Axios.get(`${baseURL}/distancematrix/${origins}/${destinations}`)
                             .then(response => {
                                 distance = response.data.distance;
                                 duration = response.data.duration;
                                 timeUnit = response.data.unit;
-                                Axios.get(`http://localhost:5000/ParkingLot/${data._id}/SnapShots/latest`)
+                                Axios.get(`${baseURL}/ParkingLot/${data._id}/SnapShots/latest`)
                                     .then(response => {
                                         data["OpenParkings"] = (response.data);
                                         data["Distance"] = distance;
