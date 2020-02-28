@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\v2",
-    "\\v2\\backend",
-    "\\v2\\backend\\Models",
-    "\\v2\\backend\\routes",
-    "\\v2\\public",
-    "\\v2\\public\\stylesheets",
-    "\\v2\\public\\stylesheets\\sass",
-    "\\v2\\public\\stylesheets\\sass\\abstracts",
-    "\\v2\\public\\stylesheets\\sass\\base"
+    "\\backend",
+    "\\backend\\Models",
+    "\\public",
+    "\\public\\stylesheets",
+    "\\public\\stylesheets\\sass",
+    "\\public\\stylesheets\\sass\\base",
+    "\\public\\stylesheets\\sass\\components",
+    "\\src",
+    "\\src\\components"
   ],
-  "SelectedNode": "\\v2\\public\\stylesheets\\sass\\main.scss",
+  "SelectedNode": "\\src\\components\\showPage.js",
   "PreviewInSolutionExplorer": false
 }
