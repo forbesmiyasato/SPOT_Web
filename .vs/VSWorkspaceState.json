@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\v2",
+    "\\v2\\backend",
+    "\\v2\\backend\\Models",
+    "\\v2\\backend\\routes",
+    "\\v2\\public",
+    "\\v2\\public\\stylesheets",
+    "\\v2\\public\\stylesheets\\sass",
+    "\\v2\\public\\stylesheets\\sass\\abstracts",
+    "\\v2\\public\\stylesheets\\sass\\base"
+  ],
+  "SelectedNode": "\\v2\\public\\stylesheets\\sass\\main.scss",
+  "PreviewInSolutionExplorer": false
+}
