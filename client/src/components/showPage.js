@@ -54,12 +54,12 @@ class ShowPage extends React.Component {
                         var destinations = `${data.Lat}/${data.Lng}`;
                         var origins = `${this.state.origin.latitude}/${this.state.origin.longitude}`;
 
-                        Axios.get(`${baseURL}/distancematrix/${origins}/${destinations}`)
+                        Axios.get(`/distancematrix/${origins}/${destinations}`)
                             .then(response => {
                                 distance = response.data.distance;
                                 duration = response.data.duration;
                                 timeUnit = response.data.unit;
-                                Axios.get(`${baseURL}/ParkingLot/${data._id}/SnapShots/latest`)
+                                Axios.get(`/ParkingLot/${data._id}/SnapShots/latest`)
                                     .then(response => {
                                         data["OpenParkings"] = (response.data);
                                         data["Distance"] = distance;
