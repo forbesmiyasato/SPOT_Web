@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
         var count23 = 0;
         var count24 = 0;
         var hour;
-        axios.get(`${baseURL}/ParkingLot/${this.props.ID}/SnapShots/All`)
+        axios.get(`/ParkingLot/${this.props.ID}/SnapShots/All`)
             .then(response => {
                 response.data.map((data) => {
                     //convert data.timestamp from utc to local time (-7) then get the hour
