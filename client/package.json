@@ -1,5 +1,5 @@
 {
-  "name": "v2",
+  "name": "SPOT",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "react-device-detect": "^1.11.14",
     "react-dom": "^16.10.0",
     "react-google-maps": "^9.4.5",
+    "react-html-parser": "^2.0.2",
     "react-places-autocomplete": "^7.2.1",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",

@@ -1,11 +1,13 @@
 /*global google*/
 
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
     withGoogleMap,
     GoogleMap,
     DirectionsRenderer
 } from "react-google-maps";
+import ReactHtmlParser from 'react-html-parser'
+import SearchBox from "react-google-maps/lib/components/places/SearchBox";
 
 
 class Map extends Component {
@@ -61,12 +63,33 @@ class Map extends Component {
         ));
 
         return (
-            <div>
-                <GoogleMapExample
-                    containerElement={<div style={{ height: "70rem", width: "100%" }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                />
-            </div>
+            <>
+                <div>
+                    <GoogleMapExample
+                        containerElement={<div style={{ height: "70rem", width: "100%" }} />}
+                        mapElement={<div style={{ height: `100%` }} />}
+                    />
+                    <div class="ui list divided direction-list massive">
+                        {this.state.directions ? this.state.directions.routes[0].legs[0].steps.map((data, i) => {
+                            return (<div class="item">
+                                {data.maneuver.includes("left") ?  <i class="icon arrow left"></i> : null}
+                                {data.maneuver.includes("right") ?  <i class="icon arrow right"></i> : null}
+                                {data.maneuver ? null : <i class="map marker icon"></i>}
+                                <div class="content direction-content">
+                                    <a class="header direction-header">{ReactHtmlParser(data.instructions)}</a>
+                                    <div class="description direction-description">
+                                        Distance: {data.distance.text} Duration: {data.duration.text}
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        })
+                            :
+                            null
+                        }
+                    </div>
+                </div>
+            </>
         );
     }
 }

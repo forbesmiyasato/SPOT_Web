@@ -45,7 +45,7 @@ class ShowPage extends React.Component {
         if (localStorage.getItem('OriginLat')) {
             var Origin = { latitude: JSON.parse(localStorage.getItem('OriginLat')), longitude: JSON.parse(localStorage.getItem('OriginLng')) };
             this.setState({ origin: Origin })
-            Axios.get('/ParkingLot/All')
+            Axios.get(`/ParkingLot/All`)
                 .then(response => {
                     response.data.map((data) => {
                         var distance;

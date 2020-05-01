@@ -42,7 +42,7 @@
     opacity: 1 !important;
 }
 
-.item {
+.list-item {
     opacity: 0;
 
     &.basic:hover {
@@ -91,6 +91,26 @@
     border: none;
 }
 
+.direction-list {
+    position: absolute;
+    top: 10rem;
+    width: 30rem;
+    height: 50rem;
+    background-color: white;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.direction-header {
+    cursor: default !important;
+}
+
+.direction-content {
+    font-size: 1vw !important;
+}
+// .direction-description {
+//     border-bottom: 1px solid #000; 
+// }
 /*button:active {
     outline: none;
     border: none;

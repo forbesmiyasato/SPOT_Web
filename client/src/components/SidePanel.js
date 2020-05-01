@@ -13,7 +13,7 @@ class SidePanel extends React.Component {
                         {this.props.Data.map((data, i) => {
                             return (<React.Fragment key={i}>
                                 {this.props.showingList ?
-                                    <div className={(this.props.showSidePanel ? "list-show " : " ") + "item basic"} onClick={this.props.onListItemClick.bind(this, data)}
+                                    <div className={(this.props.showSidePanel ? "list-show " : " ") + "item list-item basic"} onClick={this.props.onListItemClick.bind(this, data)}
                                         onMouseOver={this.props.onHover.bind(this, data)} onMouseOut={this.props.onLeave.bind(this, data)}
                                         style={(this.props.highlightedItem === data._id ? { backgroundColor: "rgba(157, 227, 200, 0.2)" } : null )}>
                                         <img alt={data.Name} className="ui top aligned tiny image" src={data.Image} />
@@ -35,7 +35,7 @@ class SidePanel extends React.Component {
                     )
                 })}
                         {!this.props.showingList ?
-                        <div className={(this.props.showSidePanel ? "list-show " : " ") + "item"}>
+                        <div className={(this.props.showSidePanel ? "list-show " : " ") + "list-item"}>
                             <div className="ui blue buttons">
                                 <button className="ui labeled icon button" onClick={this.props.onBack.bind(this)}>
                                     <i className="left chevron icon"></i>
@@ -68,7 +68,7 @@ class SidePanel extends React.Component {
             <div className={(this.props.showSidePanel ? "menu-button__clicked " : " ") + "menu-button"}>
                 <button onClick={this.props.onSidePanelToggle} className="slide-button">  <i className="right chevron icon"></i> </button>
             </div>
-            </div >
+            </div>
         )
 
     }
