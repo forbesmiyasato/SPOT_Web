@@ -174,7 +174,7 @@ class LandingPage extends React.Component {
                 <div className="home-header__text-box">
                     <h1 className="heading-primary">
                         <span className="heading-primary--main">Spot</span>
-                        <span className="heading-primary--sub">Single Parking Observation Tool</span>
+                        <span className="heading-primary--sub">Simple Parking Observation Tool</span>
                     </h1>
                     <form id="input" onSubmit={this.submitLocation.bind(this)} onChange={this.test.bind(this)}>
                         <div className="search-box">
