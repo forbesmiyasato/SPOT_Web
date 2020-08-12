@@ -11,7 +11,9 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://miya5288:SeniorProject@cluster0-m9wbz.mongodb.net/SPOT?retryWrites=true&w=majority", {
+console.log(process.env.MONGO_API_KEY);
+
+mongoose.connect(`mongodb+srv://miya5288:${process.env.MONGO_API_KEY}@cluster0-m9wbz.mongodb.net/SPOT?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useCreateIndex: true
 })
