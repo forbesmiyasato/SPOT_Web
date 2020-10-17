@@ -5,7 +5,11 @@
 ### Welcome to SPOT Mobile!
 <hr>
 
-SPOT WEB is part of my senior capstone.
+SPOT Web is the web interface for my senior capstone project SPOT (Simple Parking Observation Tool).
+
+SPOT is an application that monitors parking lots with a camera and sends the analyzed data to the user interface.
+
+This repository is the MVC of SPOT and does not contain the machine learning model (I developed the web and mobile interface and did not take part in the MLM).
 
 
 <br />
@@ -25,7 +29,7 @@ SPOT WEB is part of my senior capstone.
 ### Get Started <g-emoji class="g-emoji" alias="rocket" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png">🚀</g-emoji>
 <hr>
 
-
+Demo (0:00 to 3:18 for SPOT Web): https://drive.google.com/file/d/1VUJ0MA52Qic0hfVtEmGZjFfhAdsruZpb/view?usp=sharing
 
 <br />
 
